@@ -8,69 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Page.Resources>
-        <SolidColorBrush x:Key="ButtonBackground" Color="#dee8d5"/>
-        <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#cdd8c5"/>
-        <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#bfcab7"/>
-
-        <SolidColorBrush x:Key="TextControlBackground" Color="#D5C7BC"/>
-        <SolidColorBrush x:Key="TextControlBackgroundPointerOver" Color="#cbb9ad"/>
-        <SolidColorBrush x:Key="TextControlBackgroundFocused" Color="#cbb9ad"/>
-
-        <SolidColorBrush x:Key="PasswordBoxBackground" Color="#D5C7BC"/>
-        <SolidColorBrush x:Key="PasswordBoxBackgroundPointerOver" Color="#cbb9ad"/>
-        <SolidColorBrush x:Key="PasswordBoxBackgroundFocused" Color="#cbb9ad"/>
-
-        <SolidColorBrush x:Key="TextControlBorderBrush" Color="#D5C7BC"/>
-        <SolidColorBrush x:Key="TextControlBorderBrushPointerOver" Color="#cbb9ad"/>
-        <SolidColorBrush x:Key="TextControlBorderBrushFocused" Color="#cbb9ad"/>
-
-        <SolidColorBrush x:Key="PasswordBoxBorderBrush" Color="#D5C7BC"/>
-        <SolidColorBrush x:Key="PasswordBoxBorderBrushPointerOver" Color="#cbb9ad"/>
-        <SolidColorBrush x:Key="PasswordBoxBorderBrushFocused" Color="#cbb9ad"/>
-
-        <FontFamily x:Key="CuteFont">Poppins</FontFamily>
-
-        <Style x:Key="PastelButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="{StaticResource ButtonBackground}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource ButtonBackground}"/>
-            <Setter Property="Foreground" Value="#4D5A42"/>
-            <Setter Property="CornerRadius" Value="8"/>
-            <Setter Property="Height" Value="45"/>
-            <Setter Property="MinWidth" Value="120"/>
-            <Setter Property="Padding" Value="12,6"/>
-
-            <Setter Property="UseSystemFocusVisuals" Value="False"/>
-            <Setter Property="BackgroundSizing" Value="InnerBorderEdge"/>
-        </Style>
-
-        <Style x:Key="PastelComboBox" TargetType="ComboBox">
-            <Setter Property="Background" Value="{StaticResource TextControlBackground}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource TextControlBackground}"/>
-            <Setter Property="Foreground" Value="#42352C"/>
-            <Setter Property="CornerRadius" Value="8"/>
-            <Setter Property="Padding" Value="12,6"/>
-            <Setter Property="MinHeight" Value="45"/>
-
-            <Setter Property="UseSystemFocusVisuals" Value="False"/>
-            <Setter Property="BackgroundSizing" Value="InnerBorderEdge"/>
-        </Style>
-
-        <Style x:Key="CuteHeaderText" TargetType="TextBlock">
-            <Setter Property="FontFamily" Value="Segoe Script"/>
-            <Setter Property="FontSize" Value="20"/>
-            <Setter Property="Foreground" Value="#3A2F28"/>
-            <Setter Property="Margin" Value="0,10,0,4"/>
-        </Style>
-
-        <Style x:Key="PastelDialogStyle" TargetType="ContentDialog">
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="CornerRadius" Value="25"/>
-            <Setter Property="Foreground" Value="#42352C"/>
-        </Style>
-    </Page.Resources>
-
-    <Grid Background="#2C2320">
+    <Grid Background="#EBE7E7">
 
         <Grid HorizontalAlignment="Center"
               VerticalAlignment="Center">

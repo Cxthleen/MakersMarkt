@@ -13,5 +13,15 @@
         <MicaBackdrop />
     </Window.SystemBackdrop>
 
-    <Frame x:Name="RootFrame"/>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <local:AppHeader Grid.Row="0"/>
+
+        <Frame x:Name="RootFrame" Grid.Row="1"/>
+    </Grid>
 </Window>
+

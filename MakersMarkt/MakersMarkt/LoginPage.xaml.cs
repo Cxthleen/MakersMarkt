@@ -86,11 +86,11 @@ namespace MakersMarkt
                 CloseButtonText = "Cancel",
                 XamlRoot = this.XamlRoot,
                 RequestedTheme = ElementTheme.Light,
-                Style = (Style)Resources["PastelDialogStyle"]
+                Style = (Style)Application.Current.Resources["PastelDialogStyle"]
             };
 
-            registerDialog.PrimaryButtonStyle = (Style)Resources["PastelButtonStyle"];
-            registerDialog.CloseButtonStyle = (Style)Resources["PastelButtonStyle"];
+            registerDialog.PrimaryButtonStyle = (Style)Application.Current.Resources["PastelButtonStyle"];
+            registerDialog.CloseButtonStyle = (Style)Application.Current.Resources["PastelButtonStyle"];
 
             StackPanel layout = new()
             {
@@ -143,7 +143,7 @@ namespace MakersMarkt
             {
                 ItemsSource = new List<string> { "buyer", "seller" },
                 SelectedIndex = 0,
-                Style = (Style)Resources["PastelComboBox"],
+                Style = (Style)Application.Current.Resources["PastelComboBox"],
                 VerticalAlignment = VerticalAlignment.Center,
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 MinWidth = 150
@@ -237,8 +237,8 @@ namespace MakersMarkt
             {
                 PlaceholderText = placeholder,
                 Height = 45,
-                Background = (Brush)Resources["PasswordBoxBackground"],
-                BorderBrush = (Brush)Resources["PasswordBoxBackground"],
+                Background = (Brush)Application.Current.Resources["PasswordBoxBackground"],
+                BorderBrush = (Brush)Application.Current.Resources["PasswordBoxBackground"],
                 Foreground = new SolidColorBrush(Color.FromArgb(255, 66, 53, 44)),
                 CornerRadius = new CornerRadius(8),
                 Padding = new Thickness(40, 11, 12, 0),
@@ -296,7 +296,7 @@ namespace MakersMarkt
             {
                 Content = "OK",
                 HorizontalAlignment = HorizontalAlignment.Center,
-                Style = (Style)Resources["PastelButtonStyle"]
+                Style = (Style)Application.Current.Resources["PastelButtonStyle"]
             };
             okButton.Click += (_, __) => dialog.Hide();
 

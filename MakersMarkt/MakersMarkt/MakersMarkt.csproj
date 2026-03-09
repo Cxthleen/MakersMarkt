@@ -16,6 +16,7 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="AppHeader.xaml" />
     <None Remove="Assets\kitty.jpg" />
     <None Remove="Assets\koifish.png" />
     <None Remove="Assets\miffy.jpg" />
@@ -58,6 +59,11 @@
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="9.0.0" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.10" />
     <PackageReference Include="System.Text.Json" Version="9.0.10" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="AppHeader.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Dashboards\AdminDashboard.xaml">

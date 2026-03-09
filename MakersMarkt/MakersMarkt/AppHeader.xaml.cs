@@ -18,20 +18,17 @@ using Windows.Foundation.Collections;
 
 namespace MakersMarkt
 {
-    /// <summary>
-    /// An empty window that can be used on its own or navigated to within a Frame.
-    /// </summary>
-    public sealed partial class MainWindow : Window
+    public sealed partial class AppHeader : UserControl
     {
-        public MainWindow()
+        public AppHeader()
         {
             InitializeComponent();
-            RootFrame.Navigate(typeof(MakersMarkt.LoginPage));
+
         }
 
-        public void NavigateToLogin()
+        private void Logout_Click(object sender, RoutedEventArgs e)
         {
-            RootFrame.Navigate(typeof(LoginPage));
+            (App.MainAppWindow as MainWindow)?.NavigateToLogin();
         }
 
     }

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl
+    x:Class="MakersMarkt.AppHeader"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MakersMarkt"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="#F5F5F5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border x:Name="HeaderBorder"
+                Grid.Row="0"
+                Background="White"
+                BorderBrush="#11000000"
+                BorderThickness="0,0,0,1">
+
+            <Grid Padding="12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="MakersMarkt"
+                   FontFamily="Segoe UI Rounded"
+                   FontSize="28"
+                   FontWeight="SemiBold"
+                   Foreground="#42352C"
+                   VerticalAlignment="Center"/>
+
+                <StackPanel Orientation="Horizontal"
+                    Spacing="12"
+                    VerticalAlignment="Center"
+                    Grid.Column="1">
+
+                    <Button Content="Logout"
+                    Style="{StaticResource PastelButtonStyle}"
+                    MinWidth="80"
+                    Click="Logout_Click"/>
+                </StackPanel>
+            </Grid>
+
+        </Border>
+    </Grid>
+
+</UserControl>
