@@ -267,7 +267,7 @@ namespace MakersMarkt
             ContentDialog dialog = new()
             {
                 XamlRoot = this.XamlRoot,
-                Background = new SolidColorBrush(ColorHelper.FromArgb(255, 253, 245, 244)),
+                Background = new SolidColorBrush(ColorHelper.FromArgb(255, 255, 255, 255)),
                 CornerRadius = new CornerRadius(25),
                 Title = null
             };
