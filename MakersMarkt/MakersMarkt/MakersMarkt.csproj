@@ -15,6 +15,15 @@
     <EnableMsixTooling>true</EnableMsixTooling>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Assets\kitty.jpg" />
+    <None Remove="Assets\koifish.png" />
+    <None Remove="Assets\miffy.jpg" />
+    <None Remove="Dashboards\AdminDashboard.xaml" />
+    <None Remove="Dashboards\BuyerDashboard.xaml" />
+    <None Remove="Dashboards\SellerDashboard.xaml" />
+    <None Remove="LoginPage.xaml" />
+  </ItemGroup>
 
   <ItemGroup>
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -49,6 +58,26 @@
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="9.0.0" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.10" />
     <PackageReference Include="System.Text.Json" Version="9.0.10" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Dashboards\AdminDashboard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Dashboards\BuyerDashboard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="LoginPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Dashboards\SellerDashboard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 
   <!--

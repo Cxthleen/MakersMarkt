@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="MakersMarkt.LoginPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MakersMarkt"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <SolidColorBrush x:Key="ButtonBackground" Color="#dee8d5"/>
+        <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#cdd8c5"/>
+        <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#bfcab7"/>
+
+        <SolidColorBrush x:Key="TextControlBackground" Color="#D5C7BC"/>
+        <SolidColorBrush x:Key="TextControlBackgroundPointerOver" Color="#cbb9ad"/>
+        <SolidColorBrush x:Key="TextControlBackgroundFocused" Color="#cbb9ad"/>
+
+        <SolidColorBrush x:Key="PasswordBoxBackground" Color="#D5C7BC"/>
+        <SolidColorBrush x:Key="PasswordBoxBackgroundPointerOver" Color="#cbb9ad"/>
+        <SolidColorBrush x:Key="PasswordBoxBackgroundFocused" Color="#cbb9ad"/>
+
+        <SolidColorBrush x:Key="TextControlBorderBrush" Color="#D5C7BC"/>
+        <SolidColorBrush x:Key="TextControlBorderBrushPointerOver" Color="#cbb9ad"/>
+        <SolidColorBrush x:Key="TextControlBorderBrushFocused" Color="#cbb9ad"/>
+
+        <SolidColorBrush x:Key="PasswordBoxBorderBrush" Color="#D5C7BC"/>
+        <SolidColorBrush x:Key="PasswordBoxBorderBrushPointerOver" Color="#cbb9ad"/>
+        <SolidColorBrush x:Key="PasswordBoxBorderBrushFocused" Color="#cbb9ad"/>
+
+        <FontFamily x:Key="CuteFont">Poppins</FontFamily>
+
+        <Style x:Key="PastelButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource ButtonBackground}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource ButtonBackground}"/>
+            <Setter Property="Foreground" Value="#4D5A42"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Height" Value="45"/>
+            <Setter Property="MinWidth" Value="120"/>
+            <Setter Property="Padding" Value="12,6"/>
+
+            <Setter Property="UseSystemFocusVisuals" Value="False"/>
+            <Setter Property="BackgroundSizing" Value="InnerBorderEdge"/>
+        </Style>
+
+        <Style x:Key="PastelComboBox" TargetType="ComboBox">
+            <Setter Property="Background" Value="{StaticResource TextControlBackground}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TextControlBackground}"/>
+            <Setter Property="Foreground" Value="#42352C"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="12,6"/>
+            <Setter Property="MinHeight" Value="45"/>
+
+            <Setter Property="UseSystemFocusVisuals" Value="False"/>
+            <Setter Property="BackgroundSizing" Value="InnerBorderEdge"/>
+        </Style>
+
+        <Style x:Key="CuteHeaderText" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Segoe Script"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Foreground" Value="#3A2F28"/>
+            <Setter Property="Margin" Value="0,10,0,4"/>
+        </Style>
+
+        <Style x:Key="PastelDialogStyle" TargetType="ContentDialog">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="CornerRadius" Value="25"/>
+            <Setter Property="Foreground" Value="#42352C"/>
+        </Style>
+    </Page.Resources>
+
+    <Grid Background="#2C2320">
+
+        <Grid HorizontalAlignment="Center"
+              VerticalAlignment="Center">
+
+            <Border Background="White"
+                    CornerRadius="25"
+                    Width="1100"
+                    Height="600">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0"
+                          Padding="60"
+                          Background="White">
+
+                        <StackPanel Spacing="20"
+                                    VerticalAlignment="Center">
+
+                            <TextBlock Text="Welcome"
+                                       FontSize="40"
+                                       FontFamily="{StaticResource CuteFont}"
+                                       HorizontalAlignment="Center"
+                                       Foreground="#3A2F28"/>
+
+                            <Grid Height="45">
+                                <TextBox x:Name="UsernameBox"
+                                     PlaceholderText="Username"
+                                     Height="45"
+                                     Background="{ThemeResource TextControlBackground}"
+                                     BorderBrush="{ThemeResource TextControlBackground}"
+                                     Foreground="#42352C"
+                                     CornerRadius="8"
+                                     Padding="40,11,12,0"
+                                     VerticalContentAlignment="Center"/>
+
+                                <FontIcon Glyph="&#xE77B;"
+                                      FontSize="20"
+                                      VerticalAlignment="Center"
+                                      HorizontalAlignment="Left"
+                                      Margin="12,0,0,0"
+                                      Foreground="#42352C"
+                                      IsHitTestVisible="False"/>
+                            </Grid>
+
+                            <Grid Height="45">
+                                <PasswordBox x:Name="PasswordBox"
+                                     PlaceholderText="Password"
+                                     Height="45"
+                                     Background="{ThemeResource PasswordBoxBackground}"
+                                     BorderBrush="{ThemeResource PasswordBoxBackground}"
+                                     Foreground="#42352C"
+                                     CornerRadius="8"
+                                     Padding="40,11,12,0"
+                                     VerticalContentAlignment="Center"/>
+
+                                <FontIcon Glyph="&#xE72E;"
+                                  FontSize="20"
+                                  VerticalAlignment="Center"
+                                  HorizontalAlignment="Left"
+                                  Margin="12,0,0,0"
+                                  Foreground="#42352C"
+                                  IsHitTestVisible="False"/>
+                            </Grid>
+
+                            <StackPanel Orientation="Horizontal"
+                                        Spacing="15"
+                                        Margin="0,10,0,0">
+
+                                <Button Content="Login"
+                                        Width="140"
+                                        Height="45"
+                                        Background="{ThemeResource ButtonBackground}"
+                                        BorderBrush="{ThemeResource ButtonBackground}"
+                                        Foreground="#4D5A42"
+                                        CornerRadius="8"
+                                        Click="Login_Click"/>
+
+                                <Button Content="Register"
+                                        Width="140"
+                                        Height="45"
+                                        Background="{ThemeResource ButtonBackground}"
+                                        BorderBrush="{ThemeResource ButtonBackground}"
+                                        Foreground="#4D5A42"
+                                        CornerRadius="8"
+                                        Click="Register_Click"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+
+                    <Border Grid.Column="1"
+                            CornerRadius="0,25,25,0"
+                            Background="LightGray">
+
+                        <Image Source="/Assets/kitty.jpg"
+                               Stretch="UniformToFill"/>
+                    </Border>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</Page>

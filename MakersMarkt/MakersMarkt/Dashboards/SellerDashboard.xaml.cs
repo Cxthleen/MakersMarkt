@@ -1,3 +1,4 @@
+using MakersMarkt.Data.Models;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -16,17 +17,24 @@ using Windows.Foundation.Collections;
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
-namespace MakersMarkt
+namespace MakersMarkt.Dashboards
 {
     /// <summary>
-    /// An empty window that can be used on its own or navigated to within a Frame.
+    /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class MainWindow : Window
+    public sealed partial class SellerDashboard : Page
     {
-        public MainWindow()
+        private User _currentUser;
+        public SellerDashboard()
         {
             InitializeComponent();
-            RootFrame.Navigate(typeof(MakersMarkt.LoginPage));
+        }
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            _currentUser = e.Parameter as User;
+            base.OnNavigatedTo(e);
+
+            WelcomeText.Text = $"Welcome, {_currentUser.DisplayName}";
         }
     }
 }
