@@ -210,7 +210,7 @@ secrets.json
 # Entity Framework migrations (optional)
 # Uncomment the line below if you do NOT want to track migrations in git
 # -----------------------------------------------
-# Migrations/
+Migrations/
 
 # -----------------------------------------------
 # Node / tooling
