@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Page
-    x:Class="MakersMarkt.Dashboards.AdminDashboard"
+    x:Class="MakersMarkt.Dashboards.ModerationPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:MakersMarkt.Dashboards"
@@ -9,9 +9,6 @@
     mc:Ignorable="d">
 
     <Grid Padding="20">
-        <StackPanel>
-            <TextBlock x:Name="WelcomeText" FontSize="24" Margin="0,0,0,20"/>
-            <Button x:Name="ModerationButton" Content="Moderation" Width="200" Height="50" Click="ModerationButton_Click"/>
-        </StackPanel>
+        <TextBlock FontSize="24" Text="Moderation Page" />
     </Grid>
 </Page>

@@ -1,4 +1,3 @@
-using MakersMarkt.Data.Models;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -13,17 +12,18 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using MakersMarkt.Data.Models;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
 namespace MakersMarkt.Dashboards
 {
-    public sealed partial class AdminDashboard : Page
+    public sealed partial class ModerationPage : Page
     {
         private User _currentUser;
 
-        public AdminDashboard()
+        public ModerationPage()
         {
             InitializeComponent();
         }
@@ -32,14 +32,6 @@ namespace MakersMarkt.Dashboards
         {
             _currentUser = e.Parameter as User;
             base.OnNavigatedTo(e);
-
-            WelcomeText.Text = $"Welcome, {_currentUser.DisplayName}";
-        }
-
-        private void ModerationButton_Click(object sender, RoutedEventArgs e)
-        {
-            // Navigate to ModerationPage, passing the current user if needed
-            Frame.Navigate(typeof(ModerationPage), _currentUser);
         }
     }
 }
