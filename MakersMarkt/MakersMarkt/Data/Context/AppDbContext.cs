@@ -116,9 +116,9 @@ namespace MakersMarkt.Data.Context
 
             // Seed data
             modelBuilder.Entity<User>().HasData(
-                new User { Id = 1, Username = "admin", Password = "$2a$11$YKbHBMcKuDcWNHOgntbOtOc7Yv0iDUQBNjmTMhKJr.FqaRMlqoN3e", Role = "admin", DisplayName = "Administrator", Biography = "Platform administrator." },
-                new User { Id = 2, Username = "jan_maker", Password = "$2a$11$92hkLiGx.X93r1.5Bx/3NeJqV/vBSXOF71sHGlxRAXsLGkWkzfWXa", Role = "seller", DisplayName = "Jan the Maker", Biography = "I craft handmade wooden furniture." },
-                new User { Id = 3, Username = "lisa_buyer", Password = "$2a$11$Tgl1KMf.K6kFzGNVIg1Nxe7rJPK3vY1pKBb0rVk3TFcFVQv8KNv2S", Role = "buyer", DisplayName = "Lisa", Biography = "I love unique handmade products." }
+                new User { Id = 1, Username = "admin", Password = BCrypt.Net.BCrypt.HashPassword("Admin!"), Role = "admin", DisplayName = "Administrator", Biography = "Platform administrator." },
+                new User { Id = 2, Username = "maker", Password = BCrypt.Net.BCrypt.HashPassword("Maker!"), Role = "seller", DisplayName = "Jan the Maker", Biography = "I craft handmade wooden furniture." },
+                new User { Id = 3, Username = "buyer", Password = BCrypt.Net.BCrypt.HashPassword("Buyer!"), Role = "buyer", DisplayName = "Lisa", Biography = "I love unique handmade products." }
             );
 
             modelBuilder.Entity<Category>().HasData(
