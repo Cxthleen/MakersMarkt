@@ -1,4 +1,5 @@
-﻿using Microsoft.UI.Xaml;
+﻿using MakersMarkt.Data.Context;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Data;
@@ -34,7 +35,10 @@ namespace MakersMarkt
         /// </summary>
         public App()
         {
-            InitializeComponent();
+            this.InitializeComponent();
+
+            using var db = new AppDbContext();
+            db.Database.EnsureCreated();
         }
 
         public static Window MainAppWindow { get; private set; }
