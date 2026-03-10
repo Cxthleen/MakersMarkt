@@ -1,4 +1,5 @@
-﻿using Microsoft.UI.Xaml;
+﻿using MakersMarkt.Data.Context;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Data;
@@ -15,6 +16,7 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -34,7 +36,10 @@ namespace MakersMarkt
         /// </summary>
         public App()
         {
-            InitializeComponent();
+            this.InitializeComponent();
+
+            using var db = new AppDbContext();
+            db.Database.EnsureCreated();
         }
 
         public static Window MainAppWindow { get; private set; }
