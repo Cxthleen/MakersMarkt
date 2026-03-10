@@ -1,6 +1,4 @@
-﻿using Microsoft.UI.Xaml.Controls;
-using System.Collections.Generic;
-using Windows.UI.Notifications;
+﻿using System.Collections.Generic;
 
 namespace MakersMarkt.Data.Models
 {
@@ -13,6 +11,7 @@ namespace MakersMarkt.Data.Models
         public string DisplayName { get; set; }
         public string Biography { get; set; }
 
+        public ICollection<Product> Products { get; set; }
         public ICollection<Order> Orders { get; set; }
         public ICollection<Review> Reviews { get; set; }
         public ICollection<Notification> Notifications { get; set; }

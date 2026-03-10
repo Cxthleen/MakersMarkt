@@ -42,6 +42,12 @@ namespace MakersMarkt.Data.Context
                 .IsUnique();
 
             // Relationships
+            modelBuilder.Entity<Product>()
+                .HasOne(p => p.Seller)
+                .WithMany(u => u.Products)
+                .HasForeignKey(p => p.SellerUserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             modelBuilder.Entity<Order>()
                 .HasOne(o => o.Buyer)
                 .WithMany(u => u.Orders)
@@ -128,8 +134,8 @@ namespace MakersMarkt.Data.Context
             );
 
             modelBuilder.Entity<Product>().HasData(
-                new Product { Id = 1, Name = "Oak Wall Shelf", Description = "Handmade wall shelf crafted from solid oak.", CategoryId = 1, MaterialUsage = "Oak wood", ProductionTime = "3 days", Complexity = "Medium", Durability = "High" },
-                new Product { Id = 2, Name = "Knitted Scarf", Description = "Soft merino wool scarf, hand-knitted.", CategoryId = 2, MaterialUsage = "Merino wool", ProductionTime = "2 days", Complexity = "Low", Durability = "Medium" }
+                new Product { Id = 1, Name = "Oak Wall Shelf", Description = "Handmade wall shelf crafted from solid oak.", CategoryId = 1, SellerUserId = 2, MaterialUsage = "Oak wood", ProductionTime = "3 days", Complexity = "Medium", Durability = "High" },
+                new Product { Id = 2, Name = "Knitted Scarf", Description = "Soft merino wool scarf, hand-knitted.", CategoryId = 2, SellerUserId = 2, MaterialUsage = "Merino wool", ProductionTime = "2 days", Complexity = "Low", Durability = "Medium" }
             );
 
             modelBuilder.Entity<Order>().HasData(
