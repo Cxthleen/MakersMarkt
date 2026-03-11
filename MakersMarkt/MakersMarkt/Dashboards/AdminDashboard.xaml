@@ -6,12 +6,282 @@
     xmlns:local="using:MakersMarkt.Dashboards"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    Background="#F2F2F7">
 
-    <Grid Padding="20">
-        <StackPanel>
-            <TextBlock x:Name="WelcomeText" FontSize="24" Margin="0,0,0,20"/>
-            <Button x:Name="ModerationButton" Content="Moderation" Width="200" Height="50" Click="ModerationButton_Click"/>
-        </StackPanel>
+    <Page.Resources>
+        <Style x:Key="CardStyle" TargetType="Border">
+            <Setter Property="Background" Value="#FFFFFF"/>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#E5E5EA"/>
+        </Style>
+        <Style x:Key="SectionHeaderStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="#8E8E93"/>
+            <Setter Property="CharacterSpacing" Value="80"/>
+            <Setter Property="Margin" Value="0,0,0,8"/>
+        </Style>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0"
+                Background="#FFFFFF"
+                BorderBrush="#E5E5EA"
+                BorderThickness="0,0,0,1"
+                Padding="28,16">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Spacing="12">
+                    <Border Background="#007AFF" CornerRadius="10" Width="36" Height="36">
+                        <TextBlock Text="A" FontSize="16" FontWeight="Bold" Foreground="White"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock Text="Admin Dashboard"
+                                   FontSize="17" FontWeight="SemiBold" Foreground="#1C1C1E"
+                                   FontFamily="Segoe UI Variable Display"/>
+                        <TextBlock Text="MakersMarkt Platformbeheer"
+                                   FontSize="12" Foreground="#8E8E93" FontFamily="Segoe UI Variable"/>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="12" VerticalAlignment="Center">
+                    <Border Background="#E8F4FF" CornerRadius="18" Width="36" Height="36"
+                            BorderBrush="#007AFF" BorderThickness="1.5">
+                        <TextBlock x:Name="AdminInitial"
+                                   FontSize="14" FontWeight="SemiBold" Foreground="#007AFF"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock x:Name="WelcomeText" FontSize="13" FontWeight="SemiBold" Foreground="#1C1C1E"/>
+                        <TextBlock Text="Administrator" FontSize="11" Foreground="#8E8E93"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="1" Padding="28,24" ColumnSpacing="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Spacing="16">
+
+                <Button x:Name="ModerationButton"
+                        Click="ModerationButton_Click"
+                        HorizontalAlignment="Stretch"
+                        Background="#007AFF"
+                        CornerRadius="14"
+                        BorderThickness="0"
+                        Padding="0">
+                    <Border Padding="24,28" HorizontalAlignment="Stretch">
+                        <StackPanel Spacing="14">
+                            <Border Background="#FFFFFF" CornerRadius="12"
+                                    Width="52" Height="52"
+                                    HorizontalAlignment="Left">
+                                <FontIcon Glyph="&#xE9D9;" FontSize="24" Foreground="#007AFF"
+                                          HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <StackPanel Spacing="4">
+                                <TextBlock Text="Open Moderatie Dashboard"
+                                           FontSize="17" FontWeight="Bold"
+                                           Foreground="White"
+                                           FontFamily="Segoe UI Variable Display"
+                                           TextWrapping="Wrap"/>
+                                <TextBlock Text="Bekijk producten, meldingen en statistieken"
+                                           FontSize="12" Foreground="#FFFFFFAA"
+                                           TextWrapping="Wrap"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <TextBlock Text="Ga naar dashboard"
+                                           FontSize="13" FontWeight="SemiBold"
+                                           Foreground="White"/>
+                                <FontIcon Glyph="&#xE76C;" FontSize="12" Foreground="White"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </Button>
+
+                <Border Style="{StaticResource CardStyle}">
+                    <StackPanel Spacing="16">
+                        <TextBlock Text="PLATFORMINFO" Style="{StaticResource SectionHeaderStyle}"/>
+                        <StackPanel Spacing="12">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <Border Background="#E8F4FF" CornerRadius="6" Padding="6">
+                                        <FontIcon Glyph="&#xE719;" FontSize="13" Foreground="#007AFF"/>
+                                    </Border>
+                                    <TextBlock Text="Totaal producten"
+                                               FontSize="13" Foreground="#3C3C43" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <TextBlock Grid.Column="1"
+                                           x:Name="TotalProductsText"
+                                           Text="—"
+                                           FontSize="14" FontWeight="SemiBold" Foreground="#1C1C1E"
+                                           VerticalAlignment="Center"/>
+                            </Grid>
+                            <Border Height="1" Background="#F2F2F7"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <Border Background="#FFF0EE" CornerRadius="6" Padding="6">
+                                        <FontIcon Glyph="&#xE7BA;" FontSize="13" Foreground="#FF3B30"/>
+                                    </Border>
+                                    <TextBlock Text="Open meldingen"
+                                               FontSize="13" Foreground="#3C3C43" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <TextBlock Grid.Column="1"
+                                           x:Name="OpenReportsText"
+                                           Text="—"
+                                           FontSize="14" FontWeight="SemiBold" Foreground="#1C1C1E"
+                                           VerticalAlignment="Center"/>
+                            </Grid>
+                            <Border Height="1" Background="#F2F2F7"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <Border Background="#EEFAF2" CornerRadius="6" Padding="6">
+                                        <FontIcon Glyph="&#xE716;" FontSize="13" Foreground="#34C759"/>
+                                    </Border>
+                                    <TextBlock Text="Gebruikers"
+                                               FontSize="13" Foreground="#3C3C43" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <TextBlock Grid.Column="1"
+                                           x:Name="TotalUsersText"
+                                           Text="—"
+                                           FontSize="14" FontWeight="SemiBold" Foreground="#1C1C1E"
+                                           VerticalAlignment="Center"/>
+                            </Grid>
+                            <Border Height="1" Background="#F2F2F7"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <Border Background="#FFF8E8" CornerRadius="6" Padding="6">
+                                        <FontIcon Glyph="&#xE8A5;" FontSize="13" Foreground="#FF9500"/>
+                                    </Border>
+                                    <TextBlock Text="Moderatieacties"
+                                               FontSize="13" Foreground="#3C3C43" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <TextBlock Grid.Column="1"
+                                           x:Name="TotalModActionsText"
+                                           Text="—"
+                                           FontSize="14" FontWeight="SemiBold" Foreground="#1C1C1E"
+                                           VerticalAlignment="Center"/>
+                            </Grid>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+
+            <Border Grid.Column="1" Style="{StaticResource CardStyle}" Padding="0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" Padding="24,18,24,14"
+                            BorderBrush="#E5E5EA" BorderThickness="0,0,0,1">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Spacing="2">
+                                <TextBlock Text="Moderatielogboek"
+                                           FontSize="17" FontWeight="SemiBold" Foreground="#1C1C1E"
+                                           FontFamily="Segoe UI Variable Display"/>
+                                <TextBlock Text="Alle geregistreerde moderatieacties op het platform"
+                                           FontSize="12" Foreground="#8E8E93"/>
+                            </StackPanel>
+                            <Border Grid.Column="1"
+                                    x:Name="LogCountBadge"
+                                    Background="#F2F2F7" CornerRadius="8" Padding="10,4">
+                                <TextBlock x:Name="LogCountText"
+                                           FontSize="12" FontWeight="SemiBold" Foreground="#8E8E93"/>
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <ListView Grid.Row="1"
+                              x:Name="AllLogsListView"
+                              Padding="12,8"
+                              SelectionMode="None">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                <Setter Property="Padding" Value="12,0"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="local:ModerationLogViewModel">
+                                <Border Padding="0,12" BorderBrush="#F2F2F7" BorderThickness="0,0,0,1">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Border Grid.Column="0"
+                                                CornerRadius="6" Padding="10,4"
+                                                Background="{x:Bind ActionColor}"
+                                                Margin="0,0,14,0"
+                                                VerticalAlignment="Center">
+                                            <TextBlock Text="{x:Bind ActionType}"
+                                                       FontSize="11" FontWeight="SemiBold" Foreground="White"/>
+                                        </Border>
+                                        <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="2">
+                                            <TextBlock Text="{x:Bind ProductName}"
+                                                       FontSize="13" FontWeight="SemiBold" Foreground="#1C1C1E"/>
+                                            <TextBlock Text="{x:Bind Note}"
+                                                       FontSize="12" Foreground="#8E8E93"/>
+                                        </StackPanel>
+                                        <Border Grid.Column="2"
+                                                Background="#F2F2F7" CornerRadius="6"
+                                                Padding="10,4" VerticalAlignment="Center">
+                                            <TextBlock Text="{x:Bind ModeratorName}"
+                                                       FontSize="12" FontWeight="Medium" Foreground="#3C3C43"/>
+                                        </Border>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <Border x:Name="LoadingOverlay" Grid.RowSpan="2"
+                Background="#80FFFFFF" Visibility="Collapsed">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="16">
+                <ProgressRing IsActive="True" Width="40" Height="40" Foreground="#007AFF"/>
+                <TextBlock Text="Laden..." FontSize="14" Foreground="#8E8E93"
+                           HorizontalAlignment="Center"/>
+            </StackPanel>
+        </Border>
     </Grid>
 </Page>
