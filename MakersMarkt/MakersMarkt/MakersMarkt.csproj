@@ -17,6 +17,12 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="AppHeader.xaml" />
+    <None Remove="Assets\bibble eyeroll.jpg" />
+    <None Remove="Assets\bibble.jpg" />
+    <None Remove="Assets\bibbleno.jpg" />
+    <None Remove="Assets\bibblepoo.jpg" />
+    <None Remove="Assets\Bibbleshock.jpg" />
+    <None Remove="Assets\bibbleyay.jpg" />
     <None Remove="Assets\kitty.jpg" />
     <None Remove="Assets\koifish.png" />
     <None Remove="Assets\miffy.jpg" />

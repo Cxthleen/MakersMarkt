@@ -8,6 +8,7 @@ using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
+using Microsoft.UI.Xaml.Media.Imaging;
 using Microsoft.UI.Xaml.Navigation;
 using System;
 using System.Collections.Generic;
@@ -51,7 +52,7 @@ namespace MakersMarkt
 
             if (user != null && BCrypt.Net.BCrypt.Verify(password, user.Password))
             {
-                await ShowMessage($"Logged in as {user.Role}");
+                await ShowMessage($"Welcome {user.Role} !");
 
                 switch (user.Role)
                 {
@@ -74,7 +75,7 @@ namespace MakersMarkt
             }
             else
             {
-                await ShowMessage("Invalid username or password");
+                await ShowMessage("Hmm… that doesn’t look right.");
             }
         }
         private async void Register_Click(object sender, RoutedEventArgs e)
@@ -166,7 +167,7 @@ namespace MakersMarkt
 
                 if (password != confirm)
                 {
-                    await ShowMessage("Passwords do not match");
+                    await ShowMessage("Nope! Try checking your password again.");
                     return;
                 }
 
@@ -174,7 +175,7 @@ namespace MakersMarkt
 
                 if (db.Users.Any(u => u.Username == username))
                 {
-                    await ShowMessage("Username already exists");
+                    await ShowMessage("Oops! That name’s already in use.");
                     return;
                 }
 
@@ -192,7 +193,7 @@ namespace MakersMarkt
                 db.Users.Add(newUser);
                 db.SaveChanges();
 
-                await ShowMessage("Account created successfully");
+                await ShowMessage("Account created!");
             }
         }
 
@@ -281,6 +282,42 @@ namespace MakersMarkt
                 Margin = new Thickness(20)
             };
 
+            StackPanel messageRow = new()
+            {
+                Orientation = Orientation.Horizontal,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
+                Spacing = 10
+            };
+
+            string iconPath = "ms-appx:///Assets/bibblepoo.jpg";
+
+            if (message.Contains("forgot", StringComparison.OrdinalIgnoreCase))
+                iconPath = "ms-appx:///Assets/bibble.jpg";
+
+            else if (message.Contains("weird", StringComparison.OrdinalIgnoreCase))
+                iconPath = "ms-appx:///Assets/Bibbleshock.jpg";
+
+            else if (message.Contains("Nope", StringComparison.OrdinalIgnoreCase))
+                iconPath = "ms-appx:///Assets/bibble eyeroll.jpg";
+
+            else if (message.Contains("doesn't", StringComparison.OrdinalIgnoreCase))
+                iconPath = "ms-appx:///Assets/bibblepoo.jpg";
+
+            else if (message.Contains("already", StringComparison.OrdinalIgnoreCase))
+                iconPath = "ms-appx:///Assets/bibbleno.jpg";
+
+            else if (message.Contains("created", StringComparison.OrdinalIgnoreCase))
+                iconPath = "ms-appx:///Assets/bibbleyay.jpg";
+
+            Image icon = new()
+            {
+                Source = new BitmapImage(new Uri(iconPath)),
+                Width = 50,
+                Height = 50,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+
             TextBlock text = new()
             {
                 Text = message,
@@ -289,18 +326,21 @@ namespace MakersMarkt
                 Foreground = new SolidColorBrush(Color.FromArgb(255, 44, 35, 32)),
                 TextWrapping = TextWrapping.Wrap,
                 TextAlignment = TextAlignment.Center,
-                HorizontalAlignment = HorizontalAlignment.Center
+                VerticalAlignment = VerticalAlignment.Center
             };
+
+            messageRow.Children.Add(icon);
+            messageRow.Children.Add(text);
 
             Button okButton = new()
             {
-                Content = "OK",
+                Content = "Okey",
                 HorizontalAlignment = HorizontalAlignment.Center,
                 Style = (Style)Application.Current.Resources["PastelButtonStyle"]
             };
             okButton.Click += (_, __) => dialog.Hide();
 
-            panel.Children.Add(text);
+            panel.Children.Add(messageRow);
             panel.Children.Add(okButton);
 
             dialog.Content = panel;
@@ -309,4 +349,3 @@ namespace MakersMarkt
         }
     }
 }
-
