@@ -134,9 +134,15 @@ namespace MakersMarkt.Data.Context
             );
 
             modelBuilder.Entity<Product>().HasData(
-                new Product { Id = 1, Name = "Oak Wall Shelf", Description = "Handmade wall shelf crafted from solid oak.", CategoryId = 1, SellerUserId = 2, MaterialUsage = "Oak wood", ProductionTime = "3 days", Complexity = "Medium", Durability = "High" },
-                new Product { Id = 2, Name = "Knitted Scarf", Description = "Soft merino wool scarf, hand-knitted.", CategoryId = 2, SellerUserId = 2, MaterialUsage = "Merino wool", ProductionTime = "2 days", Complexity = "Low", Durability = "Medium" }
-            );
+                new Product { Id = 1, Name = "Oak Wall Shelf", Description = "Handcrafted floating wall shelf made from solid European oak with a natural oil finish.", CategoryId = 1, SellerUserId = 2, MaterialUsage = "Solid oak wood, natural oil finish", ProductionTime = "3 days", Complexity = "Medium", Durability = "High" },
+
+                new Product { Id = 2, Name = "Knitted Merino Scarf", Description = "Warm hand-knitted scarf made from soft merino wool, perfect for winter.", CategoryId = 2, SellerUserId = 2, MaterialUsage = "Merino wool", ProductionTime = "2 days", Complexity = "Low", Durability = "Medium" },
+
+                new Product { Id = 3, Name = "Handmade Wool Beanie", Description = "Cozy handmade beanie knitted with premium wool for comfort and warmth.", CategoryId = 2, SellerUserId = 2, MaterialUsage = "Wool yarn", ProductionTime = "2 days", Complexity = "Low", Durability = "Medium" },
+
+                new Product { Id = 4, Name = "Chunky Knit Blanket", Description = "Large chunky knit blanket made with thick yarn, ideal for cozy home decor.", CategoryId = 2, SellerUserId = 2, MaterialUsage = "Chunky wool yarn", ProductionTime = "4 days", Complexity = "Medium", Durability = "High" },
+
+                new Product { Id = 5, Name = "Handmade Wool Mittens", Description = "Warm knitted mittens crafted from soft wool to keep hands comfortable in cold weather.", CategoryId = 2, SellerUserId = 2, MaterialUsage = "Merino wool", ProductionTime = "2 days", Complexity = "Low", Durability = "High" });
 
             modelBuilder.Entity<Order>().HasData(
                 new Order { Id = 1, Status = "completed", OrderDate = new DateTime(2024, 3, 10, 9, 0, 0), BuyerUserId = 3 }

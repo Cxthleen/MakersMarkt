@@ -22,6 +22,7 @@
     <None Remove="Assets\miffy.jpg" />
     <None Remove="Dashboards\AdminDashboard.xaml" />
     <None Remove="Dashboards\BuyerDashboard.xaml" />
+    <None Remove="Dashboards\EditProductPage.xaml" />
     <None Remove="Dashboards\ModerationPage.xaml" />
     <None Remove="Dashboards\SellerDashboard.xaml" />
     <None Remove="LoginPage.xaml" />
@@ -60,6 +61,11 @@
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="9.0.0" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.10" />
     <PackageReference Include="System.Text.Json" Version="9.0.10" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Dashboards\EditProductPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Dashboards\ModerationPage.xaml">
