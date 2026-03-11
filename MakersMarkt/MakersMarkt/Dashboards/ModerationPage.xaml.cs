@@ -4,7 +4,6 @@ using MakersMarkt.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using System;
 using System.Collections.Generic;
@@ -13,7 +12,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using Windows.UI;
+
 namespace MakersMarkt.Dashboards
 {
     public class ProductModerationViewModel : INotifyPropertyChanged
@@ -32,18 +31,21 @@ namespace MakersMarkt.Dashboards
         protected void OnPropertyChanged([CallerMemberName] string name = null)
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
+
     public class CategoryStatViewModel
     {
         public string CategoryName { get; set; }
         public int ProductCount { get; set; }
         public double BarWidth { get; set; }
     }
+
     public class RatingStatViewModel
     {
         public string CategoryName { get; set; }
         public double AverageRating { get; set; }
         public string AverageRatingDisplay => AverageRating.ToString("F1");
     }
+
     public class PopularTypeViewModel
     {
         public string Rank { get; set; }
@@ -52,6 +54,7 @@ namespace MakersMarkt.Dashboards
         public string CountDisplay => $"{Count} producten";
         public string BadgeColor { get; set; }
     }
+
     public class ModerationLogViewModel
     {
         public string ActionType { get; set; }
@@ -67,6 +70,7 @@ namespace MakersMarkt.Dashboards
             _ => "#8E8E93"
         };
     }
+
     public class SearchResultViewModel
     {
         public int ProductId { get; set; }
@@ -82,6 +86,7 @@ namespace MakersMarkt.Dashboards
             _ => "#C7C7CC"
         };
     }
+
     public class ReportModerationViewModel : INotifyPropertyChanged
     {
         public int Id { get; set; }
@@ -98,17 +103,18 @@ namespace MakersMarkt.Dashboards
         };
         public string ReporterName { get; set; }
         public string FlagName { get; set; }
-
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string name = null)
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
+
     public class FlagViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public string Pattern { get; set; }
     }
+
     public sealed partial class ModerationPage : Page
     {
         private User _currentUser;
@@ -123,10 +129,16 @@ namespace MakersMarkt.Dashboards
         private ObservableCollection<RatingStatViewModel> _ratingStats = new();
         private ObservableCollection<PopularTypeViewModel> _popularTypes = new();
         private ObservableCollection<ModerationLogViewModel> _recentActions = new();
+        private ObservableCollection<ModerationLogViewModel> _allLogs = new();
         private ObservableCollection<FlagViewModel> _flags = new();
         private List<Category> _categories = new();
+
         private int _pendingProductId;
         private string _pendingAction;
+        private string _productStatusFilter = "all";
+        private string _searchScope = "Alles";
+        private string _reportStatusFilter = "all";
+
         public ModerationPage()
         {
             InitializeComponent();
@@ -140,6 +152,7 @@ namespace MakersMarkt.Dashboards
             RecentActionsListView.ItemsSource = _recentActions;
             FlagButtonsControl.ItemsSource = _flags;
         }
+
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             _currentUser = e.Parameter as User;
@@ -147,12 +160,20 @@ namespace MakersMarkt.Dashboards
             if (_currentUser != null)
             {
                 ModeratorName.Text = _currentUser.DisplayName ?? _currentUser.Username;
-                ModeratorInitial.Text = (ModeratorName.Text.Length > 0
+                ModeratorInitial.Text = ModeratorName.Text.Length > 0
                     ? ModeratorName.Text[0].ToString().ToUpper()
-                    : "M");
+                    : "M";
             }
             await LoadAllDataAsync();
         }
+
+        private static string GetDeepMessage(Exception ex)
+        {
+            while (ex.InnerException != null)
+                ex = ex.InnerException;
+            return ex.Message;
+        }
+
         private async Task LoadAllDataAsync()
         {
             ShowLoading(true);
@@ -168,25 +189,23 @@ namespace MakersMarkt.Dashboards
             }
             catch (Exception ex)
             {
-                ShowStatus($"Fout bij laden: {ex.Message}", isError: true);
+                ShowStatus($"Fout bij laden: {GetDeepMessage(ex)}", isError: true);
             }
             finally
             {
                 ShowLoading(false);
             }
         }
+
         private async Task LoadCategoriesAsync()
         {
             _categories = await _db.Categories.OrderBy(c => c.Name).ToListAsync();
-            CategoryFilterComboBox.Items.Clear();
-            CategoryFilterComboBox.Items.Add(new ComboBoxItem { Content = "Alle categorieën", Tag = 0 });
-            foreach (var cat in _categories)
-                CategoryFilterComboBox.Items.Add(new ComboBoxItem { Content = cat.Name, Tag = cat.Id });
             CategoryAssignComboBox.Items.Clear();
             foreach (var cat in _categories)
                 CategoryAssignComboBox.Items.Add(new ComboBoxItem { Content = cat.Name, Tag = cat.Id });
             TotalCategoriesCount.Text = _categories.Count.ToString();
         }
+
         private async Task LoadProductsAsync()
         {
             var products = await _db.Products
@@ -218,9 +237,11 @@ namespace MakersMarkt.Dashboards
                 _allProducts.Add(vm);
                 _filteredProducts.Add(vm);
             }
+
             TotalProductsCount.Text = products.Count.ToString();
             UpdateProductCountLabel();
         }
+
         private async Task LoadReportsAsync()
         {
             var reports = await _db.Reports
@@ -229,9 +250,11 @@ namespace MakersMarkt.Dashboards
                 .Include(r => r.Flag)
                 .OrderByDescending(r => r.Id)
                 .ToListAsync();
+
             _allReports.Clear();
             _filteredReports.Clear();
             int openCount = 0;
+
             foreach (var r in reports)
             {
                 var vm = new ReportModerationViewModel
@@ -248,13 +271,16 @@ namespace MakersMarkt.Dashboards
                 _filteredReports.Add(vm);
                 if (vm.Status == "open") openCount++;
             }
+
             TotalReportsCount.Text = openCount.ToString();
             UpdateReportCountLabel();
+
             if (ReportsEmptyState != null)
                 ReportsEmptyState.Visibility = _filteredReports.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
             if (ReportsListView != null)
                 ReportsListView.Visibility = _filteredReports.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
         }
+
         private async Task LoadStatsAsync()
         {
             var catGroups = await _db.Products
@@ -263,42 +289,37 @@ namespace MakersMarkt.Dashboards
                 .Select(g => new { Name = g.Key, Count = g.Count() })
                 .OrderByDescending(g => g.Count)
                 .ToListAsync();
+
             _categoryStats.Clear();
             int maxCount = catGroups.FirstOrDefault()?.Count ?? 1;
             foreach (var g in catGroups)
-            {
                 _categoryStats.Add(new CategoryStatViewModel
                 {
                     CategoryName = g.Name ?? "Onbekend",
                     ProductCount = g.Count,
                     BarWidth = maxCount > 0 ? (g.Count / (double)maxCount) * 300 : 0
                 });
-            }
+
             var ratingGroups = await _db.Reviews
                 .Include(r => r.Product).ThenInclude(p => p.Category)
                 .GroupBy(r => r.Product.Category.Name)
                 .Select(g => new { Name = g.Key, Avg = g.Average(r => r.Rating) })
                 .OrderByDescending(g => g.Avg)
                 .ToListAsync();
+
             _ratingStats.Clear();
             foreach (var g in ratingGroups)
-            {
                 _ratingStats.Add(new RatingStatViewModel
                 {
                     CategoryName = g.Name ?? "Onbekend",
                     AverageRating = g.Avg
                 });
-            }
+
             bool hasReviews = await _db.Reviews.AnyAsync();
-            if (hasReviews)
-            {
-                double platformAvg = await _db.Reviews.AverageAsync(r => r.Rating);
-                AvgRatingDisplay.Text = platformAvg.ToString("F1");
-            }
-            else
-            {
-                AvgRatingDisplay.Text = "—";
-            }
+            AvgRatingDisplay.Text = hasReviews
+                ? (await _db.Reviews.AverageAsync(r => r.Rating)).ToString("F1")
+                : "—";
+
             var typeGroups = await _db.Products
                 .Where(p => p.Complexity != null)
                 .GroupBy(p => p.Complexity)
@@ -306,20 +327,19 @@ namespace MakersMarkt.Dashboards
                 .OrderByDescending(g => g.Count)
                 .Take(5)
                 .ToListAsync();
+
             _popularTypes.Clear();
-            string[] rankBadges = { "1", "2", "3", "4", "5" };
             string[] badgeColors = { "#007AFF", "#34C759", "#FF9500", "#8E8E93", "#C7C7CC" };
             for (int i = 0; i < typeGroups.Count; i++)
-            {
                 _popularTypes.Add(new PopularTypeViewModel
                 {
-                    Rank = rankBadges[i],
+                    Rank = (i + 1).ToString(),
                     TypeName = typeGroups[i].Type,
                     Count = typeGroups[i].Count,
                     BadgeColor = badgeColors[i]
                 });
-            }
         }
+
         private async Task LoadFlagsAsync()
         {
             var flags = await _db.Flags
@@ -331,6 +351,7 @@ namespace MakersMarkt.Dashboards
             foreach (var f in flags)
                 _flags.Add(new FlagViewModel { Id = f.Id, Name = f.Name, Pattern = f.Pattern });
         }
+
         private async Task LoadRecentActionsAsync()
         {
             var mods = await _db.Moderations
@@ -339,24 +360,46 @@ namespace MakersMarkt.Dashboards
                 .OrderByDescending(m => m.Id)
                 .Take(20)
                 .ToListAsync();
+
             _recentActions.Clear();
             foreach (var m in mods)
-            {
-                _recentActions.Add(new ModerationLogViewModel
-                {
-                    ActionType = m.ActionType ?? "Actie",
-                    ProductName = m.Product?.Name ?? $"Product #{m.ProductId}",
-                    Note = string.IsNullOrWhiteSpace(m.Note) ? "Geen notitie" : m.Note,
-                    ModeratorName = m.User?.DisplayName ?? m.User?.Username ?? "Onbekend"
-                });
-            }
+                _recentActions.Add(BuildLogVm(m));
         }
+
+        private async Task LoadAllLogsForFlyoutAsync()
+        {
+            var mods = await _db.Moderations
+                .Include(m => m.Product)
+                .Include(m => m.User)
+                .OrderByDescending(m => m.Id)
+                .ToListAsync();
+
+            _allLogs.Clear();
+            foreach (var m in mods)
+                _allLogs.Add(BuildLogVm(m));
+        }
+
+        private static ModerationLogViewModel BuildLogVm(Moderation m) => new()
+        {
+            ActionType = m.ActionType ?? "Actie",
+            ProductName = m.Product?.Name ?? $"Product #{m.ProductId}",
+            Note = string.IsNullOrWhiteSpace(m.Note) ? "Geen notitie" : m.Note,
+            ModeratorName = m.User?.DisplayName ?? m.User?.Username ?? "Onbekend"
+        };
+
+        private async void LogsFlyout_Opening(object sender, object e)
+        {
+            await LoadAllLogsForFlyoutAsync();
+            LogsFlyoutListView.ItemsSource = _allLogs;
+        }
+
         private void UpdateBadges()
         {
             int openReports = _allReports.Count(r => r.Status == "open");
             PendingReportsBadge.Visibility = openReports > 0 ? Visibility.Visible : Visibility.Collapsed;
             PendingReportsCount.Text = $"{openReports} open";
         }
+
         private void UpdateProductCountLabel()
         {
             if (ProductCountLabel != null)
@@ -378,6 +421,7 @@ namespace MakersMarkt.Dashboards
             StatusInfoBar.Message = message;
             StatusInfoBar.IsOpen = true;
         }
+
         private async Task LogModerationActionAsync(int productId, string actionType, string note)
         {
             var entry = new Moderation
@@ -391,23 +435,24 @@ namespace MakersMarkt.Dashboards
             await _db.SaveChangesAsync();
             await LoadRecentActionsAsync();
         }
+
         private void ProductSearchBox_TextChanged(object sender, TextChangedEventArgs e)
             => ApplyProductFilters();
 
-        private void CategoryFilterComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-            => ApplyProductFilters();
-
-        private void StatusFilterComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-            => ApplyProductFilters();
+        private void ProductStatusFilter_Checked(object sender, RoutedEventArgs e)
+        {
+            if ((sender as RadioButton)?.Tag is string tag)
+            {
+                _productStatusFilter = tag;
+                ApplyProductFilters();
+            }
+        }
 
         private void ApplyProductFilters()
         {
-            if (ProductSearchBox == null || CategoryFilterComboBox == null || StatusFilterComboBox == null) return;
+            if (ProductSearchBox == null) return;
 
             string search = ProductSearchBox.Text?.ToLower() ?? string.Empty;
-            int catId = (CategoryFilterComboBox.SelectedItem as ComboBoxItem)?.Tag is int c ? c : 0;
-            string statusTag = (StatusFilterComboBox.SelectedItem as ComboBoxItem)?.Tag as string ?? "all";
-
             var filtered = _allProducts.AsEnumerable();
 
             if (!string.IsNullOrWhiteSpace(search))
@@ -416,9 +461,7 @@ namespace MakersMarkt.Dashboards
                     p.Description.ToLower().Contains(search) ||
                     p.CategoryName.ToLower().Contains(search));
 
-            if (catId > 0)
-                filtered = filtered.Where(p => p.CategoryId == catId);
-            if (statusTag == "pending")
+            if (_productStatusFilter == "pending")
                 filtered = filtered.Where(p => p.ReportCount > 0);
 
             _filteredProducts.Clear();
@@ -428,25 +471,26 @@ namespace MakersMarkt.Dashboards
             UpdateProductCountLabel();
         }
 
-        private void ProductListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            //detail panel?
-        }
+        private void ProductListView_SelectionChanged(object sender, SelectionChangedEventArgs e) { }
+
         private async void ApproveProduct_Click(object sender, RoutedEventArgs e)
         {
             if ((sender as Button)?.Tag is int id)
                 await OpenModerationDialog(id, "approve");
         }
+
         private async void RejectProduct_Click(object sender, RoutedEventArgs e)
         {
             if ((sender as Button)?.Tag is int id)
                 await OpenModerationDialog(id, "reject");
         }
+
         private async void DeleteProduct_Click(object sender, RoutedEventArgs e)
         {
             if ((sender as Button)?.Tag is int id)
                 await OpenModerationDialog(id, "delete");
         }
+
         private async Task OpenModerationDialog(int productId, string action)
         {
             _pendingProductId = productId;
@@ -472,11 +516,13 @@ namespace MakersMarkt.Dashboards
             };
             await ModerationActionDialog.ShowAsync();
         }
+
         private async void ModerationActionDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             string note = ModerationNoteBox.Text?.Trim() ?? string.Empty;
             await ExecuteModerationAction(_pendingProductId, _pendingAction, note);
         }
+
         private async Task ExecuteModerationAction(int productId, string action, string note)
         {
             ShowLoading(true);
@@ -495,30 +541,69 @@ namespace MakersMarkt.Dashboards
                         break;
 
                     case "delete":
-                        var product = await _db.Products.FindAsync(productId);
-                        if (product != null)
-                        {
-                            await LogModerationActionAsync(productId, "Verwijderd", note);
-                            _db.Products.Remove(product);
-                            await _db.SaveChangesAsync();
-                            await LoadProductsAsync();
-                            await LoadStatsAsync();
-                        }
-                        ShowStatus($"Product is verwijderd.", isError: false);
+                        await DeleteProductSafelyAsync(productId, note);
                         break;
                 }
+
                 if (action != "delete")
                     await CreateNotificationForProductOwnerAsync(productId, action);
             }
             catch (Exception ex)
             {
-                ShowStatus($"Fout: {ex.Message}", isError: true);
+                ShowStatus($"Fout bij opslaan: {GetDeepMessage(ex)}", isError: true);
             }
             finally
             {
                 ShowLoading(false);
             }
         }
+
+        private async Task DeleteProductSafelyAsync(int productId, string note)
+        {
+            var product = await _db.Products
+                .Include(p => p.Reviews)
+                .Include(p => p.Reports)
+                .Include(p => p.Moderations)
+                .Include(p => p.OrderProducts)
+                .FirstOrDefaultAsync(p => p.Id == productId);
+
+            if (product == null)
+            {
+                ShowStatus("Product niet gevonden.", isError: true);
+                return;
+            }
+
+            if (product.Reviews?.Any() == true)
+                _db.Reviews.RemoveRange(product.Reviews);
+
+            if (product.Reports?.Any() == true)
+                _db.Reports.RemoveRange(product.Reports);
+
+            if (product.Moderations?.Any() == true)
+                _db.Moderations.RemoveRange(product.Moderations);
+
+            if (product.OrderProducts?.Any() == true)
+                _db.OrderProducts.RemoveRange(product.OrderProducts);
+
+            await _db.SaveChangesAsync();
+
+            _db.Moderations.Add(new Moderation
+            {
+                ProductId = productId,
+                UserId = _currentUser?.Id ?? 0,
+                ActionType = "Verwijderd",
+                Note = string.IsNullOrWhiteSpace(note) ? "Product verwijderd" : note
+            });
+
+            _db.Products.Remove(product);
+            await _db.SaveChangesAsync();
+
+            await LoadProductsAsync();
+            await LoadStatsAsync();
+            await LoadRecentActionsAsync();
+            ShowStatus("Product is verwijderd.");
+        }
+
         private async Task CreateNotificationForProductOwnerAsync(int productId, string action)
         {
             try
@@ -528,45 +613,52 @@ namespace MakersMarkt.Dashboards
                     .Select(op => op.Order.BuyerUserId)
                     .Distinct()
                     .ToListAsync();
+
                 foreach (var uid in buyerIds)
-                {
-                    var notification = new Notification
+                    _db.Notifications.Add(new Notification
                     {
                         UserId = uid,
                         Type = action == "approve" ? "product_approved" : "product_rejected",
                         IsRead = false
-                    };
-                    _db.Notifications.Add(notification);
-                }
+                    });
+
                 if (buyerIds.Any())
                     await _db.SaveChangesAsync();
             }
-            catch
-            {
-            }
+            catch { }
         }
+
         private async void AssignCategory_Click(object sender, RoutedEventArgs e)
         {
             if ((sender as Button)?.Tag is int id)
                 await OpenCategoryDialog(id);
         }
+
+        private async void AssignCategoryFromReport_Click(object sender, RoutedEventArgs e)
+        {
+            if ((sender as Button)?.Tag is int productId)
+                await OpenCategoryDialog(productId);
+        }
+
         private async Task OpenCategoryDialog(int productId)
         {
             _pendingProductId = productId;
             var product = _allProducts.FirstOrDefault(p => p.Id == productId);
             CategoryDialogProductName.Text = product?.Name ?? $"Product #{productId}";
+
             for (int i = 0; i < CategoryAssignComboBox.Items.Count; i++)
             {
-                if ((CategoryAssignComboBox.Items[i] as ComboBoxItem)?.Tag is int cid
-                    && cid == product?.CategoryId)
+                if ((CategoryAssignComboBox.Items[i] as ComboBoxItem)?.Tag is int cid && cid == product?.CategoryId)
                 {
                     CategoryAssignComboBox.SelectedIndex = i;
                     break;
                 }
             }
+
             CategoryAssignNote.Text = string.Empty;
             await CategoryAssignDialog.ShowAsync();
         }
+
         private async void CategoryAssignDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             int? newCategoryId = (CategoryAssignComboBox.SelectedItem as ComboBoxItem)?.Tag as int?;
@@ -580,10 +672,12 @@ namespace MakersMarkt.Dashboards
                 {
                     product.CategoryId = newCategoryId.Value;
                     await _db.SaveChangesAsync();
+
+                    string catName = _categories.FirstOrDefault(c => c.Id == newCategoryId)?.Name ?? "—";
                     await LogModerationActionAsync(
                         _pendingProductId,
                         "Categorie",
-                        $"Categorie gewijzigd naar {_categories.FirstOrDefault(c => c.Id == newCategoryId)?.Name}. {CategoryAssignNote.Text}".Trim()
+                        $"Categorie gewijzigd naar {catName}. {CategoryAssignNote.Text}".Trim()
                     );
                     await LoadProductsAsync();
                     await LoadStatsAsync();
@@ -592,13 +686,14 @@ namespace MakersMarkt.Dashboards
             }
             catch (Exception ex)
             {
-                ShowStatus($"Fout bij opslaan: {ex.Message}", isError: true);
+                ShowStatus($"Fout bij opslaan: {GetDeepMessage(ex)}", isError: true);
             }
             finally
             {
                 ShowLoading(false);
             }
         }
+
         private void ContentSearchBox_KeyDown(object sender, Microsoft.UI.Xaml.Input.KeyRoutedEventArgs e)
         {
             if (e.Key == Windows.System.VirtualKey.Enter)
@@ -617,6 +712,12 @@ namespace MakersMarkt.Dashboards
             }
         }
 
+        private void SearchScope_Checked(object sender, RoutedEventArgs e)
+        {
+            if ((sender as RadioButton)?.Tag is string tag)
+                _searchScope = tag;
+        }
+
         private async void ExecuteContentSearch()
         {
             string query = ContentSearchBox.Text?.Trim() ?? string.Empty;
@@ -629,15 +730,13 @@ namespace MakersMarkt.Dashboards
 
             try
             {
-                string scope = (SearchScopeComboBox.SelectedItem as ComboBoxItem)?.Content?.ToString() ?? "Alles";
+                string scope = _searchScope;
                 string q = query.ToLower();
                 int count = 0;
+
                 if (scope is "Alles" or "Productnamen" or "Beschrijvingen")
                 {
-                    var products = await _db.Products
-                        .Include(p => p.Category)
-                        .ToListAsync();
-
+                    var products = await _db.Products.Include(p => p.Category).ToListAsync();
                     foreach (var p in products)
                     {
                         bool nameMatch = scope != "Beschrijvingen" && (p.Name?.ToLower().Contains(q) ?? false);
@@ -677,6 +776,7 @@ namespace MakersMarkt.Dashboards
                         count++;
                     }
                 }
+
                 if (scope is "Alles" or "Gebruikersnamen")
                 {
                     var users = await _db.Users.ToListAsync();
@@ -697,7 +797,6 @@ namespace MakersMarkt.Dashboards
                     }
                 }
 
-                // Update UI
                 if (count > 0)
                 {
                     SearchResultsListView.Visibility = Visibility.Visible;
@@ -712,7 +811,7 @@ namespace MakersMarkt.Dashboards
             }
             catch (Exception ex)
             {
-                ShowStatus($"Zoekfout: {ex.Message}", isError: true);
+                ShowStatus($"Zoekfout: {GetDeepMessage(ex)}", isError: true);
             }
             finally
             {
@@ -723,7 +822,7 @@ namespace MakersMarkt.Dashboards
         private static string TruncateAroundKeyword(string text, string keyword, int maxLength)
         {
             if (string.IsNullOrEmpty(text)) return string.Empty;
-            int idx = text.ToLower().IndexOf(keyword.ToLower(), StringComparison.OrdinalIgnoreCase);
+            int idx = text.IndexOf(keyword, StringComparison.OrdinalIgnoreCase);
             if (idx < 0) return text.Length > maxLength ? text[..maxLength] + "…" : text;
             int start = Math.Max(0, idx - 40);
             int end = Math.Min(text.Length, idx + keyword.Length + 60);
@@ -741,19 +840,24 @@ namespace MakersMarkt.Dashboards
                 ProductSearchBox.Text = _allProducts.FirstOrDefault(p => p.Id == productId)?.Name ?? string.Empty;
             }
         }
-        private void ReportStatusFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
-            => ApplyReportFilters();
 
         private void ReportSearch_TextChanged(object sender, TextChangedEventArgs e)
             => ApplyReportFilters();
 
+        private void ReportStatusFilter_Checked(object sender, RoutedEventArgs e)
+        {
+            if ((sender as RadioButton)?.Tag is string tag)
+            {
+                _reportStatusFilter = tag;
+                ApplyReportFilters();
+            }
+        }
+
         private void ApplyReportFilters()
         {
-            if (ReportSearchBox == null || ReportStatusFilter == null) return;
+            if (ReportSearchBox == null) return;
 
             string search = ReportSearchBox.Text?.ToLower() ?? string.Empty;
-            string statusTag = (ReportStatusFilter.SelectedItem as ComboBoxItem)?.Content?.ToString() ?? "Alle meldingen";
-
             var filtered = _allReports.AsEnumerable();
 
             if (!string.IsNullOrWhiteSpace(search))
@@ -761,11 +865,11 @@ namespace MakersMarkt.Dashboards
                     r.ProductName.ToLower().Contains(search) ||
                     r.Reason.ToLower().Contains(search));
 
-            filtered = statusTag switch
+            filtered = _reportStatusFilter switch
             {
-                "Open" => filtered.Where(r => r.Status == "open"),
-                "In behandeling" => filtered.Where(r => r.Status == "pending"),
-                "Opgelost" => filtered.Where(r => r.Status == "resolved"),
+                "open" => filtered.Where(r => r.Status == "open"),
+                "pending" => filtered.Where(r => r.Status == "pending"),
+                "resolved" => filtered.Where(r => r.Status == "resolved"),
                 _ => filtered
             };
 
@@ -778,37 +882,6 @@ namespace MakersMarkt.Dashboards
                 ReportsEmptyState.Visibility = _filteredReports.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
             if (ReportsListView != null)
                 ReportsListView.Visibility = _filteredReports.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
-        }
-
-        private async void ReportCategoryCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (sender is ComboBox cb
-                && cb.Tag is int productId
-                && cb.SelectedItem is ComboBoxItem item
-                && item.Tag is int categoryId)
-            {
-                ShowLoading(true);
-                try
-                {
-                    var product = await _db.Products.FindAsync(productId);
-                    if (product != null)
-                    {
-                        product.CategoryId = categoryId;
-                        await _db.SaveChangesAsync();
-                        await LogModerationActionAsync(productId, "Categorie",
-                            $"Categorie ingesteld via meldingswachtrij: {_categories.FirstOrDefault(c => c.Id == categoryId)?.Name}");
-                        ShowStatus("Categorie bijgewerkt.");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    ShowStatus($"Fout: {ex.Message}", isError: true);
-                }
-                finally
-                {
-                    ShowLoading(false);
-                }
-            }
         }
 
         private async void ApproveFromReport_Click(object sender, RoutedEventArgs e)
@@ -841,16 +914,14 @@ namespace MakersMarkt.Dashboards
                     await _db.SaveChangesAsync();
 
                     if (productAction == "approve")
-                        await LogModerationActionAsync(report.ProductId, "Goedgekeurd",
-                            "Goedgekeurd via meldingswachtrij");
+                        await LogModerationActionAsync(report.ProductId, "Goedgekeurd", "Goedgekeurd via meldingswachtrij");
 
-                    var notif = new Notification
+                    _db.Notifications.Add(new Notification
                     {
                         UserId = report.UserId,
                         Type = "report_resolved",
                         IsRead = false
-                    };
-                    _db.Notifications.Add(notif);
+                    });
                     await _db.SaveChangesAsync();
 
                     await LoadReportsAsync();
@@ -860,13 +931,14 @@ namespace MakersMarkt.Dashboards
             }
             catch (Exception ex)
             {
-                ShowStatus($"Fout: {ex.Message}", isError: true);
+                ShowStatus($"Fout bij opslaan: {GetDeepMessage(ex)}", isError: true);
             }
             finally
             {
                 ShowLoading(false);
             }
         }
+
         private async void RefreshButton_Click(object sender, RoutedEventArgs e)
         {
             await LoadAllDataAsync();

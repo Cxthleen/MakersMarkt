@@ -8,94 +8,152 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="#F2F2F7">
+
     <Page.Resources>
-        <SolidColorBrush x:Key="AppBackground" Color="#F2F2F7"/>
-        <SolidColorBrush x:Key="CardBackground" Color="#FFFFFF"/>
-        <SolidColorBrush x:Key="PrimaryBlue" Color="#007AFF"/>
-        <SolidColorBrush x:Key="DestructiveRed" Color="#FF3B30"/>
-        <SolidColorBrush x:Key="SuccessGreen" Color="#34C759"/>
-        <SolidColorBrush x:Key="WarningOrange" Color="#FF9500"/>
-        <SolidColorBrush x:Key="PrimaryText" Color="#1C1C1E"/>
-        <SolidColorBrush x:Key="SecondaryText" Color="#8E8E93"/>
-        <SolidColorBrush x:Key="TertiaryText" Color="#C7C7CC"/>
-        <SolidColorBrush x:Key="SeparatorColor" Color="#E5E5EA"/>
+        <SolidColorBrush x:Key="AppBackground"   Color="#F2F2F7"/>
+        <SolidColorBrush x:Key="CardBackground"  Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="PrimaryBlue"     Color="#007AFF"/>
+        <SolidColorBrush x:Key="DestructiveRed"  Color="#FF3B30"/>
+        <SolidColorBrush x:Key="SuccessGreen"    Color="#34C759"/>
+        <SolidColorBrush x:Key="WarningOrange"   Color="#FF9500"/>
+        <SolidColorBrush x:Key="PrimaryText"     Color="#1C1C1E"/>
+        <SolidColorBrush x:Key="SecondaryText"   Color="#8E8E93"/>
+        <SolidColorBrush x:Key="TertiaryText"    Color="#C7C7CC"/>
+        <SolidColorBrush x:Key="SeparatorColor"  Color="#E5E5EA"/>
+
         <Style x:Key="CardStyle" TargetType="Border">
-            <Setter Property="Background" Value="#FFFFFF"/>
-            <Setter Property="CornerRadius" Value="12"/>
-            <Setter Property="Padding" Value="20"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="BorderBrush" Value="#E5E5EA"/>
+            <Setter Property="Background"       Value="#FFFFFF"/>
+            <Setter Property="CornerRadius"     Value="12"/>
+            <Setter Property="Padding"          Value="20"/>
+            <Setter Property="BorderThickness"  Value="1"/>
+            <Setter Property="BorderBrush"      Value="#E5E5EA"/>
         </Style>
-        <Style x:Key="PrimaryButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#007AFF"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="CornerRadius" Value="8"/>
-            <Setter Property="Padding" Value="16,8"/>
-            <Setter Property="FontSize" Value="13"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="BorderThickness" Value="0"/>
-        </Style>
-        <Style x:Key="DestructiveButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#FF3B30"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="CornerRadius" Value="8"/>
-            <Setter Property="Padding" Value="16,8"/>
-            <Setter Property="FontSize" Value="13"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="BorderThickness" Value="0"/>
-        </Style>
-        <Style x:Key="SecondaryButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#F2F2F7"/>
-            <Setter Property="Foreground" Value="#007AFF"/>
-            <Setter Property="CornerRadius" Value="8"/>
-            <Setter Property="Padding" Value="16,8"/>
-            <Setter Property="FontSize" Value="13"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="BorderThickness" Value="0"/>
-        </Style>
-        <Style x:Key="SuccessButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#34C759"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="CornerRadius" Value="8"/>
-            <Setter Property="Padding" Value="16,8"/>
-            <Setter Property="FontSize" Value="13"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="BorderThickness" Value="0"/>
-        </Style>
-        <Style x:Key="SearchBoxStyle" TargetType="TextBox">
-            <Setter Property="Background" Value="#FFFFFF"/>
-            <Setter Property="BorderBrush" Value="#E5E5EA"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="CornerRadius" Value="10"/>
-            <Setter Property="Padding" Value="12,10"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Foreground" Value="#1C1C1E"/>
-        </Style>
-        <Style x:Key="SectionHeaderStyle" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="11"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="Foreground" Value="#8E8E93"/>
-            <Setter Property="CharacterSpacing" Value="80"/>
-            <Setter Property="Margin" Value="0,0,0,8"/>
-        </Style>
+
         <Style x:Key="StatCardStyle" TargetType="Border">
-            <Setter Property="Background" Value="#FFFFFF"/>
-            <Setter Property="CornerRadius" Value="12"/>
-            <Setter Property="Padding" Value="20"/>
+            <Setter Property="Background"       Value="#FFFFFF"/>
+            <Setter Property="CornerRadius"     Value="12"/>
+            <Setter Property="Padding"          Value="20"/>
+            <Setter Property="BorderThickness"  Value="1"/>
+            <Setter Property="BorderBrush"      Value="#E5E5EA"/>
+        </Style>
+
+        <Style x:Key="PrimaryButtonStyle" TargetType="Button">
+            <Setter Property="Background"      Value="#007AFF"/>
+            <Setter Property="Foreground"      Value="White"/>
+            <Setter Property="CornerRadius"    Value="8"/>
+            <Setter Property="Padding"         Value="16,8"/>
+            <Setter Property="FontSize"        Value="13"/>
+            <Setter Property="FontWeight"      Value="SemiBold"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+
+        <Style x:Key="DestructiveButtonStyle" TargetType="Button">
+            <Setter Property="Background"      Value="#FF3B30"/>
+            <Setter Property="Foreground"      Value="White"/>
+            <Setter Property="CornerRadius"    Value="8"/>
+            <Setter Property="Padding"         Value="16,8"/>
+            <Setter Property="FontSize"        Value="13"/>
+            <Setter Property="FontWeight"      Value="SemiBold"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+
+        <Style x:Key="SecondaryButtonStyle" TargetType="Button">
+            <Setter Property="Background"      Value="#F2F2F7"/>
+            <Setter Property="Foreground"      Value="#007AFF"/>
+            <Setter Property="CornerRadius"    Value="8"/>
+            <Setter Property="Padding"         Value="16,8"/>
+            <Setter Property="FontSize"        Value="13"/>
+            <Setter Property="FontWeight"      Value="SemiBold"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+
+        <Style x:Key="SuccessButtonStyle" TargetType="Button">
+            <Setter Property="Background"      Value="#34C759"/>
+            <Setter Property="Foreground"      Value="White"/>
+            <Setter Property="CornerRadius"    Value="8"/>
+            <Setter Property="Padding"         Value="16,8"/>
+            <Setter Property="FontSize"        Value="13"/>
+            <Setter Property="FontWeight"      Value="SemiBold"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+
+        <Style x:Key="SearchBoxStyle" TargetType="TextBox">
+            <Setter Property="Background"      Value="#FFFFFF"/>
+            <Setter Property="BorderBrush"     Value="#E5E5EA"/>
             <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="BorderBrush" Value="#E5E5EA"/>
+            <Setter Property="CornerRadius"    Value="10"/>
+            <Setter Property="Padding"         Value="12,10"/>
+            <Setter Property="FontSize"        Value="14"/>
+            <Setter Property="Foreground"      Value="#1C1C1E"/>
         </Style>
-        <Style x:Key="BadgeStyle" TargetType="Border">
-            <Setter Property="CornerRadius" Value="6"/>
-            <Setter Property="Padding" Value="8,3"/>
+
+        <Style x:Key="SectionHeaderStyle" TargetType="TextBlock">
+            <Setter Property="FontSize"          Value="11"/>
+            <Setter Property="FontWeight"        Value="SemiBold"/>
+            <Setter Property="Foreground"        Value="#8E8E93"/>
+            <Setter Property="CharacterSpacing"  Value="80"/>
+            <Setter Property="Margin"            Value="0,0,0,8"/>
         </Style>
+
         <Style x:Key="ModernComboBoxStyle" TargetType="ComboBox">
-            <Setter Property="Background" Value="#FFFFFF"/>
-            <Setter Property="BorderBrush" Value="#E5E5EA"/>
+            <Setter Property="Background"      Value="#FFFFFF"/>
+            <Setter Property="BorderBrush"     Value="#E5E5EA"/>
             <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="CornerRadius" Value="8"/>
-            <Setter Property="Padding" Value="10,6"/>
-            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="CornerRadius"    Value="8"/>
+            <Setter Property="Padding"         Value="10,6"/>
+            <Setter Property="FontSize"        Value="13"/>
+        </Style>
+        <Style x:Key="ChipRadioStyle" TargetType="RadioButton">
+            <Setter Property="FontSize"    Value="13"/>
+            <Setter Property="FontWeight"  Value="SemiBold"/>
+            <Setter Property="MinWidth"    Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Border x:Name="Root"
+                                CornerRadius="8"
+                                Padding="14,7"
+                                Background="#F2F2F7">
+                            <ContentPresenter x:Name="Content"
+                                              Foreground="#8E8E93"
+                                              FontSize="{TemplateBinding FontSize}"
+                                              FontWeight="{TemplateBinding FontWeight}"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CheckStates">
+                                    <VisualState x:Name="Checked">
+                                        <VisualState.Setters>
+                                            <Setter Target="Root.Background"    Value="#007AFF"/>
+                                            <Setter Target="Content.Foreground" Value="White"/>
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState x:Name="Unchecked"/>
+                                    <VisualState x:Name="Indeterminate"/>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="PointerOver">
+                                        <VisualState.Setters>
+                                            <Setter Target="Root.Opacity" Value="0.80"/>
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <VisualState.Setters>
+                                            <Setter Target="Root.Opacity" Value="0.65"/>
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled">
+                                        <VisualState.Setters>
+                                            <Setter Target="Root.Opacity" Value="0.40"/>
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
     </Page.Resources>
 
@@ -115,46 +173,97 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Spacing="12">
-                    <Border Background="#007AFF"
-                            CornerRadius="10"
-                            Width="36" Height="36">
-                        <TextBlock Text="M"
-                                   FontSize="16"
-                                   FontWeight="Bold"
-                                   Foreground="White"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"/>
+                    <Border Background="#007AFF" CornerRadius="10" Width="36" Height="36">
+                        <TextBlock Text="M" FontSize="16" FontWeight="Bold" Foreground="White"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
                     <StackPanel VerticalAlignment="Center">
                         <TextBlock Text="Moderatie Dashboard"
-                                   FontSize="17"
-                                   FontWeight="SemiBold"
-                                   Foreground="#1C1C1E"
+                                   FontSize="17" FontWeight="SemiBold" Foreground="#1C1C1E"
                                    FontFamily="Segoe UI Variable Display"/>
-                        <TextBlock x:Name="SubtitleText"
-                                   Text="MakersMarkt Platformbeheer"
-                                   FontSize="12"
-                                   Foreground="#8E8E93"
-                                   FontFamily="Segoe UI Variable"/>
+                        <TextBlock Text="MakersMarkt Platformbeheer"
+                                   FontSize="12" Foreground="#8E8E93" FontFamily="Segoe UI Variable"/>
                     </StackPanel>
                 </StackPanel>
+
                 <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="12" VerticalAlignment="Center">
+
+                    <!-- Open reports badge -->
                     <Border x:Name="PendingReportsBadge"
-                            Background="#FF3B30"
-                            CornerRadius="10"
-                            Padding="10,4"
+                            Background="#FF3B30" CornerRadius="10" Padding="10,4"
                             Visibility="Collapsed">
                         <StackPanel Orientation="Horizontal" Spacing="4">
-                            <TextBlock Text="●"
-                                       FontSize="10"
-                                       Foreground="White"
-                                       VerticalAlignment="Center"/>
-                            <TextBlock x:Name="PendingReportsCount"
-                                       FontSize="12"
-                                       FontWeight="SemiBold"
-                                       Foreground="White"/>
+                            <TextBlock Text="●" FontSize="10" Foreground="White" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="PendingReportsCount" FontSize="12" FontWeight="SemiBold" Foreground="White"/>
                         </StackPanel>
                     </Border>
+                    <Button x:Name="LogsButton" Style="{StaticResource SecondaryButtonStyle}"
+                            ToolTipService.ToolTip="Bekijk moderatielogboek">
+                        <Button.Flyout>
+                            <Flyout Opening="LogsFlyout_Opening"
+                                    Placement="BottomEdgeAlignedRight">
+                                <Border Width="520" MaxHeight="540">
+                                    <StackPanel Spacing="14">
+                                        <StackPanel Spacing="4">
+                                            <TextBlock Text="Moderatielogboek"
+                                                       FontSize="17" FontWeight="SemiBold"
+                                                       Foreground="#1C1C1E"
+                                                       FontFamily="Segoe UI Variable Display"/>
+                                            <TextBlock Text="Alle geregistreerde moderatieacties"
+                                                       FontSize="12" Foreground="#8E8E93"/>
+                                        </StackPanel>
+                                        <ListView x:Name="LogsFlyoutListView"
+                                                  SelectionMode="None"
+                                                  MaxHeight="440">
+                                            <ListView.ItemContainerStyle>
+                                                <Style TargetType="ListViewItem">
+                                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                                    <Setter Property="Padding" Value="0,0"/>
+                                                </Style>
+                                            </ListView.ItemContainerStyle>
+                                            <ListView.ItemTemplate>
+                                                <DataTemplate x:DataType="local:ModerationLogViewModel">
+                                                    <Grid Padding="0,10" BorderBrush="#F2F2F7" BorderThickness="0,0,0,1">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Border Grid.Column="0"
+                                                                CornerRadius="6" Padding="8,3"
+                                                                Background="{x:Bind ActionColor}"
+                                                                Margin="0,0,12,0"
+                                                                VerticalAlignment="Center">
+                                                            <TextBlock Text="{x:Bind ActionType}"
+                                                                       FontSize="11" FontWeight="SemiBold"
+                                                                       Foreground="White"/>
+                                                        </Border>
+                                                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                                            <TextBlock Text="{x:Bind ProductName}"
+                                                                       FontSize="13" FontWeight="Medium"
+                                                                       Foreground="#1C1C1E"/>
+                                                            <TextBlock Text="{x:Bind Note}"
+                                                                       FontSize="12" Foreground="#8E8E93"/>
+                                                        </StackPanel>
+                                                        <TextBlock Grid.Column="2"
+                                                                   Text="{x:Bind ModeratorName}"
+                                                                   FontSize="12" Foreground="#8E8E93"
+                                                                   VerticalAlignment="Center"/>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </ListView.ItemTemplate>
+                                        </ListView>
+                                    </StackPanel>
+                                </Border>
+                            </Flyout>
+                        </Button.Flyout>
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <FontIcon Glyph="&#xE8A5;" FontSize="13" Foreground="#007AFF"/>
+                            <TextBlock Text="Logs" FontSize="13" FontWeight="SemiBold" Foreground="#007AFF"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- Refresh -->
                     <Button x:Name="RefreshButton"
                             Style="{StaticResource SecondaryButtonStyle}"
                             Click="RefreshButton_Click"
@@ -164,26 +273,17 @@
                             <TextBlock Text="Vernieuwen" FontSize="13" FontWeight="SemiBold" Foreground="#007AFF"/>
                         </StackPanel>
                     </Button>
-                    <Border Background="#E8F4FF"
-                            CornerRadius="18"
-                            Width="36" Height="36"
-                            BorderBrush="#007AFF"
-                            BorderThickness="1.5">
+
+                    <!-- Avatar -->
+                    <Border Background="#E8F4FF" CornerRadius="18" Width="36" Height="36"
+                            BorderBrush="#007AFF" BorderThickness="1.5">
                         <TextBlock x:Name="ModeratorInitial"
-                                   FontSize="14"
-                                   FontWeight="SemiBold"
-                                   Foreground="#007AFF"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"/>
+                                   FontSize="14" FontWeight="SemiBold" Foreground="#007AFF"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
                     <StackPanel VerticalAlignment="Center">
-                        <TextBlock x:Name="ModeratorName"
-                                   FontSize="13"
-                                   FontWeight="SemiBold"
-                                   Foreground="#1C1C1E"/>
-                        <TextBlock Text="Moderator"
-                                   FontSize="11"
-                                   Foreground="#8E8E93"/>
+                        <TextBlock x:Name="ModeratorName" FontSize="13" FontWeight="SemiBold" Foreground="#1C1C1E"/>
+                        <TextBlock Text="Moderator" FontSize="11" Foreground="#8E8E93"/>
                     </StackPanel>
                 </StackPanel>
             </Grid>
@@ -194,6 +294,16 @@
                  IsAddTabButtonVisible="False"
                  Background="#F2F2F7"
                  Padding="0">
+            <TabView.Resources>
+                <SolidColorBrush x:Key="TabViewItemHeaderBackground"             Color="#F2F2F7"/>
+                <SolidColorBrush x:Key="TabViewItemHeaderBackgroundSelected"      Color="#FFFFFF"/>
+                <SolidColorBrush x:Key="TabViewItemHeaderBackgroundPointerOver"   Color="#E5E5EA"/>
+                <SolidColorBrush x:Key="TabViewItemHeaderBackgroundPressed"       Color="#D1D1D6"/>
+                <SolidColorBrush x:Key="TabViewItemHeaderForeground"              Color="#8E8E93"/>
+                <SolidColorBrush x:Key="TabViewItemHeaderForegroundSelected"      Color="#007AFF"/>
+                <SolidColorBrush x:Key="TabViewItemHeaderForegroundPointerOver"   Color="#1C1C1E"/>
+                <SolidColorBrush x:Key="TabViewBackground"                        Color="#F2F2F7"/>
+            </TabView.Resources>
             <TabViewItem Header="Overzicht" IsClosable="False">
                 <TabViewItem.IconSource>
                     <FontIconSource Glyph="&#xE9D9;"/>
@@ -209,7 +319,6 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
-                            <!-- Total Products -->
                             <Border Grid.Column="0" Style="{StaticResource StatCardStyle}">
                                 <StackPanel Spacing="8">
                                     <StackPanel Orientation="Horizontal" Spacing="8">
@@ -218,17 +327,13 @@
                                         </Border>
                                         <TextBlock Text="PRODUCTEN" Style="{StaticResource SectionHeaderStyle}" VerticalAlignment="Center"/>
                                     </StackPanel>
-                                    <TextBlock x:Name="TotalProductsCount"
-                                               Text="—"
-                                               FontSize="32"
-                                               FontWeight="Bold"
-                                               Foreground="#1C1C1E"
+                                    <TextBlock x:Name="TotalProductsCount" Text="—"
+                                               FontSize="32" FontWeight="Bold" Foreground="#1C1C1E"
                                                FontFamily="Segoe UI Variable Display"/>
-                                    <TextBlock Text="Totaal geregistreerd"
-                                               FontSize="12"
-                                               Foreground="#8E8E93"/>
+                                    <TextBlock Text="Totaal geregistreerd" FontSize="12" Foreground="#8E8E93"/>
                                 </StackPanel>
                             </Border>
+
                             <Border Grid.Column="1" Style="{StaticResource StatCardStyle}">
                                 <StackPanel Spacing="8">
                                     <StackPanel Orientation="Horizontal" Spacing="8">
@@ -237,17 +342,13 @@
                                         </Border>
                                         <TextBlock Text="MELDINGEN" Style="{StaticResource SectionHeaderStyle}" VerticalAlignment="Center"/>
                                     </StackPanel>
-                                    <TextBlock x:Name="TotalReportsCount"
-                                               Text="—"
-                                               FontSize="32"
-                                               FontWeight="Bold"
-                                               Foreground="#1C1C1E"
+                                    <TextBlock x:Name="TotalReportsCount" Text="—"
+                                               FontSize="32" FontWeight="Bold" Foreground="#1C1C1E"
                                                FontFamily="Segoe UI Variable Display"/>
-                                    <TextBlock Text="Openstaande meldingen"
-                                               FontSize="12"
-                                               Foreground="#8E8E93"/>
+                                    <TextBlock Text="Openstaande meldingen" FontSize="12" Foreground="#8E8E93"/>
                                 </StackPanel>
                             </Border>
+
                             <Border Grid.Column="2" Style="{StaticResource StatCardStyle}">
                                 <StackPanel Spacing="8">
                                     <StackPanel Orientation="Horizontal" Spacing="8">
@@ -256,17 +357,13 @@
                                         </Border>
                                         <TextBlock Text="BEOORDELING" Style="{StaticResource SectionHeaderStyle}" VerticalAlignment="Center"/>
                                     </StackPanel>
-                                    <TextBlock x:Name="AvgRatingDisplay"
-                                               Text="—"
-                                               FontSize="32"
-                                               FontWeight="Bold"
-                                               Foreground="#1C1C1E"
+                                    <TextBlock x:Name="AvgRatingDisplay" Text="—"
+                                               FontSize="32" FontWeight="Bold" Foreground="#1C1C1E"
                                                FontFamily="Segoe UI Variable Display"/>
-                                    <TextBlock Text="Gemiddeld platform"
-                                               FontSize="12"
-                                               Foreground="#8E8E93"/>
+                                    <TextBlock Text="Gemiddeld platform" FontSize="12" Foreground="#8E8E93"/>
                                 </StackPanel>
                             </Border>
+
                             <Border Grid.Column="3" Style="{StaticResource StatCardStyle}">
                                 <StackPanel Spacing="8">
                                     <StackPanel Orientation="Horizontal" Spacing="8">
@@ -275,15 +372,10 @@
                                         </Border>
                                         <TextBlock Text="CATEGORIEËN" Style="{StaticResource SectionHeaderStyle}" VerticalAlignment="Center"/>
                                     </StackPanel>
-                                    <TextBlock x:Name="TotalCategoriesCount"
-                                               Text="—"
-                                               FontSize="32"
-                                               FontWeight="Bold"
-                                               Foreground="#1C1C1E"
+                                    <TextBlock x:Name="TotalCategoriesCount" Text="—"
+                                               FontSize="32" FontWeight="Bold" Foreground="#1C1C1E"
                                                FontFamily="Segoe UI Variable Display"/>
-                                    <TextBlock Text="Actieve categorieën"
-                                               FontSize="12"
-                                               Foreground="#8E8E93"/>
+                                    <TextBlock Text="Actieve categorieën" FontSize="12" Foreground="#8E8E93"/>
                                 </StackPanel>
                             </Border>
                         </Grid>
@@ -296,13 +388,10 @@
                                 <StackPanel Spacing="16">
                                     <StackPanel Spacing="4">
                                         <TextBlock Text="Producten per categorie"
-                                                   FontSize="15"
-                                                   FontWeight="SemiBold"
-                                                   Foreground="#1C1C1E"
+                                                   FontSize="15" FontWeight="SemiBold" Foreground="#1C1C1E"
                                                    FontFamily="Segoe UI Variable Display"/>
                                         <TextBlock Text="Verdeling over alle categorieën"
-                                                   FontSize="12"
-                                                   Foreground="#8E8E93"/>
+                                                   FontSize="12" Foreground="#8E8E93"/>
                                     </StackPanel>
                                     <ScrollViewer MaxHeight="260" VerticalScrollBarVisibility="Auto">
                                         <ItemsControl x:Name="CategoryStatsControl">
@@ -319,30 +408,18 @@
                                                                 <ColumnDefinition Width="Auto"/>
                                                             </Grid.ColumnDefinitions>
                                                             <TextBlock Text="{x:Bind CategoryName}"
-                                                                       FontSize="13"
-                                                                       FontWeight="Medium"
-                                                                       Foreground="#1C1C1E"
+                                                                       FontSize="13" FontWeight="Medium" Foreground="#1C1C1E"
                                                                        VerticalAlignment="Center"/>
                                                             <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6">
                                                                 <TextBlock Text="{x:Bind ProductCount}"
-                                                                           FontSize="13"
-                                                                           FontWeight="SemiBold"
-                                                                           Foreground="#007AFF"/>
+                                                                           FontSize="13" FontWeight="SemiBold" Foreground="#007AFF"/>
                                                                 <TextBlock Text="producten"
-                                                                           FontSize="12"
-                                                                           Foreground="#8E8E93"
-                                                                           VerticalAlignment="Center"/>
+                                                                           FontSize="12" Foreground="#8E8E93" VerticalAlignment="Center"/>
                                                             </StackPanel>
                                                         </Grid>
-                                                        <Border Grid.Row="1"
-                                                                Height="6"
-                                                                CornerRadius="3"
-                                                                Background="#F2F2F7">
-                                                            <Border HorizontalAlignment="Left"
-                                                                    Height="6"
-                                                                    CornerRadius="3"
-                                                                    Background="#007AFF"
-                                                                    Width="{x:Bind BarWidth}"/>
+                                                        <Border Grid.Row="1" Height="6" CornerRadius="3" Background="#F2F2F7">
+                                                            <Border HorizontalAlignment="Left" Height="6" CornerRadius="3"
+                                                                    Background="#007AFF" Width="{x:Bind BarWidth}"/>
                                                         </Border>
                                                     </Grid>
                                                 </DataTemplate>
@@ -351,18 +428,16 @@
                                     </ScrollViewer>
                                 </StackPanel>
                             </Border>
+
                             <StackPanel Grid.Column="1" Spacing="16">
                                 <Border Style="{StaticResource CardStyle}">
                                     <StackPanel Spacing="16">
                                         <StackPanel Spacing="4">
                                             <TextBlock Text="Gemiddelde beoordelingen"
-                                                       FontSize="15"
-                                                       FontWeight="SemiBold"
-                                                       Foreground="#1C1C1E"
+                                                       FontSize="15" FontWeight="SemiBold" Foreground="#1C1C1E"
                                                        FontFamily="Segoe UI Variable Display"/>
                                             <TextBlock Text="Per productcategorie"
-                                                       FontSize="12"
-                                                       Foreground="#8E8E93"/>
+                                                       FontSize="12" Foreground="#8E8E93"/>
                                         </StackPanel>
                                         <ScrollViewer MaxHeight="110" VerticalScrollBarVisibility="Auto">
                                             <ItemsControl x:Name="RatingStatsControl">
@@ -374,15 +449,11 @@
                                                                 <ColumnDefinition Width="Auto"/>
                                                             </Grid.ColumnDefinitions>
                                                             <TextBlock Text="{x:Bind CategoryName}"
-                                                                       FontSize="13"
-                                                                       Foreground="#1C1C1E"
-                                                                       VerticalAlignment="Center"/>
+                                                                       FontSize="13" Foreground="#1C1C1E" VerticalAlignment="Center"/>
                                                             <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="4">
                                                                 <FontIcon Glyph="&#xE735;" FontSize="11" Foreground="#FF9500"/>
                                                                 <TextBlock Text="{x:Bind AverageRatingDisplay}"
-                                                                           FontSize="13"
-                                                                           FontWeight="SemiBold"
-                                                                           Foreground="#FF9500"/>
+                                                                           FontSize="13" FontWeight="SemiBold" Foreground="#FF9500"/>
                                                             </StackPanel>
                                                         </Grid>
                                                     </DataTemplate>
@@ -395,13 +466,10 @@
                                     <StackPanel Spacing="16">
                                         <StackPanel Spacing="4">
                                             <TextBlock Text="Populaire producttypen"
-                                                       FontSize="15"
-                                                       FontWeight="SemiBold"
-                                                       Foreground="#1C1C1E"
+                                                       FontSize="15" FontWeight="SemiBold" Foreground="#1C1C1E"
                                                        FontFamily="Segoe UI Variable Display"/>
                                             <TextBlock Text="Op basis van complexiteit"
-                                                       FontSize="12"
-                                                       Foreground="#8E8E93"/>
+                                                       FontSize="12" Foreground="#8E8E93"/>
                                         </StackPanel>
                                         <ItemsControl x:Name="PopularTypesControl">
                                             <ItemsControl.ItemTemplate>
@@ -412,26 +480,15 @@
                                                             <ColumnDefinition Width="*"/>
                                                             <ColumnDefinition Width="Auto"/>
                                                         </Grid.ColumnDefinitions>
-                                                        <Border Grid.Column="0"
-                                                                Background="{x:Bind BadgeColor}"
-                                                                CornerRadius="6"
-                                                                Padding="8,3"
-                                                                Margin="0,0,10,0">
+                                                        <Border Grid.Column="0" Background="{x:Bind BadgeColor}"
+                                                                CornerRadius="6" Padding="8,3" Margin="0,0,10,0">
                                                             <TextBlock Text="{x:Bind Rank}"
-                                                                       FontSize="11"
-                                                                       FontWeight="Bold"
-                                                                       Foreground="White"/>
+                                                                       FontSize="11" FontWeight="Bold" Foreground="White"/>
                                                         </Border>
-                                                        <TextBlock Grid.Column="1"
-                                                                   Text="{x:Bind TypeName}"
-                                                                   FontSize="13"
-                                                                   Foreground="#1C1C1E"
-                                                                   VerticalAlignment="Center"/>
-                                                        <TextBlock Grid.Column="2"
-                                                                   Text="{x:Bind CountDisplay}"
-                                                                   FontSize="12"
-                                                                   FontWeight="SemiBold"
-                                                                   Foreground="#8E8E93"/>
+                                                        <TextBlock Grid.Column="1" Text="{x:Bind TypeName}"
+                                                                   FontSize="13" Foreground="#1C1C1E" VerticalAlignment="Center"/>
+                                                        <TextBlock Grid.Column="2" Text="{x:Bind CountDisplay}"
+                                                                   FontSize="12" FontWeight="SemiBold" Foreground="#8E8E93"/>
                                                     </Grid>
                                                 </DataTemplate>
                                             </ItemsControl.ItemTemplate>
@@ -443,13 +500,9 @@
                         <Border Style="{StaticResource CardStyle}">
                             <StackPanel Spacing="16">
                                 <TextBlock Text="Recente moderatieacties"
-                                           FontSize="15"
-                                           FontWeight="SemiBold"
-                                           Foreground="#1C1C1E"
+                                           FontSize="15" FontWeight="SemiBold" Foreground="#1C1C1E"
                                            FontFamily="Segoe UI Variable Display"/>
-                                <ListView x:Name="RecentActionsListView"
-                                          MaxHeight="200"
-                                          SelectionMode="None">
+                                <ListView x:Name="RecentActionsListView" MaxHeight="200" SelectionMode="None">
                                     <ListView.ItemTemplate>
                                         <DataTemplate x:DataType="local:ModerationLogViewModel">
                                             <Grid Padding="0,8">
@@ -458,31 +511,20 @@
                                                     <ColumnDefinition Width="*"/>
                                                     <ColumnDefinition Width="Auto"/>
                                                 </Grid.ColumnDefinitions>
-                                                <Border Grid.Column="0"
-                                                        CornerRadius="6"
-                                                        Padding="8,3"
-                                                        Background="{x:Bind ActionColor}"
-                                                        Margin="0,0,12,0"
+                                                <Border Grid.Column="0" CornerRadius="6" Padding="8,3"
+                                                        Background="{x:Bind ActionColor}" Margin="0,0,12,0"
                                                         VerticalAlignment="Center">
                                                     <TextBlock Text="{x:Bind ActionType}"
-                                                               FontSize="11"
-                                                               FontWeight="SemiBold"
-                                                               Foreground="White"/>
+                                                               FontSize="11" FontWeight="SemiBold" Foreground="White"/>
                                                 </Border>
                                                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
                                                     <TextBlock Text="{x:Bind ProductName}"
-                                                               FontSize="13"
-                                                               FontWeight="Medium"
-                                                               Foreground="#1C1C1E"/>
+                                                               FontSize="13" FontWeight="Medium" Foreground="#1C1C1E"/>
                                                     <TextBlock Text="{x:Bind Note}"
-                                                               FontSize="12"
-                                                               Foreground="#8E8E93"/>
+                                                               FontSize="12" Foreground="#8E8E93"/>
                                                 </StackPanel>
-                                                <TextBlock Grid.Column="2"
-                                                           Text="{x:Bind ModeratorName}"
-                                                           FontSize="12"
-                                                           Foreground="#8E8E93"
-                                                           VerticalAlignment="Center"/>
+                                                <TextBlock Grid.Column="2" Text="{x:Bind ModeratorName}"
+                                                           FontSize="12" Foreground="#8E8E93" VerticalAlignment="Center"/>
                                             </Grid>
                                         </DataTemplate>
                                     </ListView.ItemTemplate>
@@ -497,57 +539,51 @@
                 <TabViewItem.IconSource>
                     <FontIconSource Glyph="&#xE719;"/>
                 </TabViewItem.IconSource>
+
                 <Grid Padding="28,20">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="16"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <Border Grid.Row="0"
-                            Background="#FFFFFF"
-                            CornerRadius="12"
-                            Padding="16"
-                            BorderBrush="#E5E5EA"
-                            BorderThickness="1">
+                    <Border Grid.Row="0" Background="#FFFFFF" CornerRadius="12" Padding="16"
+                            BorderBrush="#E5E5EA" BorderThickness="1">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="12">
+
+                            <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="12"
+                                        VerticalAlignment="Center">
                                 <TextBox x:Name="ProductSearchBox"
                                          Style="{StaticResource SearchBoxStyle}"
-                                         PlaceholderText="Zoek producten op naam, beschrijving..."
-                                         Width="320"
+                                         PlaceholderText="Zoek op naam, beschrijving of categorie..."
+                                         Width="340"
                                          TextChanged="ProductSearchBox_TextChanged"/>
-                                <ComboBox x:Name="CategoryFilterComboBox"
-                                          Style="{StaticResource ModernComboBoxStyle}"
-                                          PlaceholderText="Alle categorieën"
-                                          Width="180"
-                                          SelectionChanged="CategoryFilterComboBox_SelectionChanged"/>
-                                <ComboBox x:Name="StatusFilterComboBox"
-                                          Style="{StaticResource ModernComboBoxStyle}"
-                                          PlaceholderText="Alle statussen"
-                                          Width="160"
-                                          SelectionChanged="StatusFilterComboBox_SelectionChanged">
-                                    <ComboBoxItem Content="Alle statussen" Tag="all"/>
-                                    <ComboBoxItem Content="Goedgekeurd" Tag="approved"/>
-                                    <ComboBoxItem Content="Afgewezen" Tag="rejected"/>
-                                    <ComboBoxItem Content="In behandeling" Tag="pending"/>
-                                </ComboBox>
+
+                                <StackPanel Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                                    <RadioButton Content="Alle producten"
+                                                 GroupName="ProductStatusGroup"
+                                                 Style="{StaticResource ChipRadioStyle}"
+                                                 Tag="all"
+                                                 IsChecked="True"
+                                                 Checked="ProductStatusFilter_Checked"/>
+                                    <RadioButton Content="Met meldingen"
+                                                 GroupName="ProductStatusGroup"
+                                                 Style="{StaticResource ChipRadioStyle}"
+                                                 Tag="pending"
+                                                 Checked="ProductStatusFilter_Checked"/>
+                                </StackPanel>
                             </StackPanel>
+
                             <TextBlock Grid.Column="1"
                                        x:Name="ProductCountLabel"
-                                       FontSize="13"
-                                       Foreground="#8E8E93"
-                                       VerticalAlignment="Center"/>
+                                       FontSize="13" Foreground="#8E8E93" VerticalAlignment="Center"/>
                         </Grid>
                     </Border>
-                    <Border Grid.Row="2"
-                            Background="#FFFFFF"
-                            CornerRadius="12"
-                            BorderBrush="#E5E5EA"
-                            BorderThickness="1">
+                    <Border Grid.Row="2" Background="#FFFFFF" CornerRadius="12"
+                            BorderBrush="#E5E5EA" BorderThickness="1">
                         <ListView x:Name="ProductListView"
                                   Padding="0"
                                   SelectionMode="Single"
@@ -561,76 +597,62 @@
                             </ListView.ItemContainerStyle>
                             <ListView.ItemTemplate>
                                 <DataTemplate x:DataType="local:ProductModerationViewModel">
-                                    <Grid Padding="0,16" MinHeight="72">
+                                    <Grid Padding="0,14" MinHeight="68">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="140"/>
-                                            <ColumnDefinition Width="120"/>
-                                            <ColumnDefinition Width="80"/>
+                                            <ColumnDefinition Width="130"/>
+                                            <ColumnDefinition Width="110"/>
+                                            <ColumnDefinition Width="70"/>
                                             <ColumnDefinition Width="Auto"/>
                                         </Grid.ColumnDefinitions>
                                         <StackPanel Grid.Column="0" VerticalAlignment="Center" Spacing="3">
                                             <TextBlock Text="{x:Bind Name}"
-                                                       FontSize="14"
-                                                       FontWeight="SemiBold"
-                                                       Foreground="#1C1C1E"
+                                                       FontSize="14" FontWeight="SemiBold" Foreground="#1C1C1E"
                                                        TextTrimming="CharacterEllipsis"/>
                                             <TextBlock Text="{x:Bind Description}"
-                                                       FontSize="12"
-                                                       Foreground="#8E8E93"
-                                                       TextTrimming="CharacterEllipsis"
-                                                       MaxWidth="340"/>
+                                                       FontSize="12" Foreground="#8E8E93"
+                                                       TextTrimming="CharacterEllipsis" MaxWidth="320"/>
                                         </StackPanel>
-                                        <Border Grid.Column="1"
-                                                Background="#F2F2F7"
-                                                CornerRadius="6"
-                                                Padding="10,4"
-                                                HorizontalAlignment="Left"
-                                                VerticalAlignment="Center">
+                                        <Border Grid.Column="1" Background="#F2F2F7" CornerRadius="6"
+                                                Padding="10,4" HorizontalAlignment="Left" VerticalAlignment="Center">
                                             <TextBlock Text="{x:Bind CategoryName}"
-                                                       FontSize="12"
-                                                       FontWeight="Medium"
-                                                       Foreground="#3C3C43"/>
+                                                       FontSize="12" FontWeight="Medium" Foreground="#3C3C43"/>
                                         </Border>
-                                        <TextBlock Grid.Column="2"
-                                                   Text="{x:Bind Complexity}"
-                                                   FontSize="12"
-                                                   Foreground="#8E8E93"
-                                                   VerticalAlignment="Center"
-                                                   HorizontalAlignment="Center"/>
-                                        <StackPanel Grid.Column="3"
-                                                    Orientation="Horizontal"
-                                                    Spacing="4"
-                                                    VerticalAlignment="Center"
-                                                    HorizontalAlignment="Center">
+                                        <TextBlock Grid.Column="2" Text="{x:Bind Complexity}"
+                                                   FontSize="12" Foreground="#8E8E93"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                        <StackPanel Grid.Column="3" Orientation="Horizontal" Spacing="4"
+                                                    VerticalAlignment="Center" HorizontalAlignment="Center">
                                             <FontIcon Glyph="&#xE735;" FontSize="11" Foreground="#FF9500"/>
                                             <TextBlock Text="{x:Bind AvgRatingDisplay}"
-                                                       FontSize="13"
-                                                       FontWeight="SemiBold"
-                                                       Foreground="#FF9500"/>
+                                                       FontSize="13" FontWeight="SemiBold" Foreground="#FF9500"/>
                                         </StackPanel>
-                                        <StackPanel Grid.Column="4"
-                                                    Orientation="Horizontal"
-                                                    Spacing="6"
+                                        <StackPanel Grid.Column="4" Orientation="Horizontal" Spacing="5"
                                                     VerticalAlignment="Center">
-                                            <Button Content="Goedkeuren"
-                                                    Style="{StaticResource SuccessButtonStyle}"
-                                                    Tag="{x:Bind Id}"
-                                                    Click="ApproveProduct_Click"
-                                                    Padding="12,6"
-                                                    FontSize="12"/>
-                                            <Button Content="Afwijzen"
-                                                    Style="{StaticResource SecondaryButtonStyle}"
-                                                    Tag="{x:Bind Id}"
-                                                    Click="RejectProduct_Click"
-                                                    Padding="12,6"
-                                                    FontSize="12"/>
-                                            <Button Content="Verwijderen"
-                                                    Style="{StaticResource DestructiveButtonStyle}"
-                                                    Tag="{x:Bind Id}"
-                                                    Click="DeleteProduct_Click"
-                                                    Padding="12,6"
-                                                    FontSize="12"/>
+                                            <Button Style="{StaticResource SuccessButtonStyle}"
+                                                    Tag="{x:Bind Id}" Click="ApproveProduct_Click"
+                                                    Padding="10,6" FontSize="12"
+                                                    ToolTipService.ToolTip="Goedkeuren">
+                                                <FontIcon Glyph="&#xE73E;" FontSize="13" Foreground="White"/>
+                                            </Button>
+                                            <Button Style="{StaticResource SecondaryButtonStyle}"
+                                                    Tag="{x:Bind Id}" Click="RejectProduct_Click"
+                                                    Padding="10,6" FontSize="12"
+                                                    ToolTipService.ToolTip="Afwijzen">
+                                                <FontIcon Glyph="&#xE8FB;" FontSize="13" Foreground="#007AFF"/>
+                                            </Button>
+                                            <Button Style="{StaticResource SecondaryButtonStyle}"
+                                                    Tag="{x:Bind Id}" Click="AssignCategory_Click"
+                                                    Padding="10,6" FontSize="12"
+                                                    ToolTipService.ToolTip="Categorie toewijzen">
+                                                <FontIcon Glyph="&#xE8B7;" FontSize="13" Foreground="#007AFF"/>
+                                            </Button>
+                                            <Button Style="{StaticResource DestructiveButtonStyle}"
+                                                    Tag="{x:Bind Id}" Click="DeleteProduct_Click"
+                                                    Padding="10,6" FontSize="12"
+                                                    ToolTipService.ToolTip="Verwijderen">
+                                                <FontIcon Glyph="&#xE74D;" FontSize="13" Foreground="White"/>
+                                            </Button>
                                         </StackPanel>
                                     </Grid>
                                 </DataTemplate>
@@ -652,23 +674,18 @@
                         <RowDefinition Height="16"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <Border Grid.Row="0"
-                            Style="{StaticResource CardStyle}">
+                    <Border Grid.Row="0" Style="{StaticResource CardStyle}">
                         <StackPanel Spacing="16">
                             <StackPanel Spacing="4">
                                 <TextBlock Text="Zoek in gebruikersteksten"
-                                           FontSize="17"
-                                           FontWeight="SemiBold"
-                                           Foreground="#1C1C1E"
+                                           FontSize="17" FontWeight="SemiBold" Foreground="#1C1C1E"
                                            FontFamily="Segoe UI Variable Display"/>
                                 <TextBlock Text="Doorzoek productnamen, beschrijvingen en recensies op ongepaste inhoud"
-                                           FontSize="13"
-                                           Foreground="#8E8E93"/>
+                                           FontSize="13" Foreground="#8E8E93"/>
                             </StackPanel>
                             <Grid ColumnSpacing="12">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
                                 <TextBox x:Name="ContentSearchBox"
@@ -676,25 +693,44 @@
                                          Style="{StaticResource SearchBoxStyle}"
                                          PlaceholderText="Zoekterm, bijv. scheldwoord of verdachte tekst..."
                                          KeyDown="ContentSearchBox_KeyDown"/>
-                                <ComboBox x:Name="SearchScopeComboBox"
-                                          Grid.Column="1"
-                                          Style="{StaticResource ModernComboBoxStyle}"
-                                          Width="180"
-                                          SelectedIndex="0">
-                                    <ComboBoxItem Content="Alles"/>
-                                    <ComboBoxItem Content="Productnamen"/>
-                                    <ComboBoxItem Content="Beschrijvingen"/>
-                                    <ComboBoxItem Content="Recensies"/>
-                                    <ComboBoxItem Content="Gebruikersnamen"/>
-                                </ComboBox>
-                                <Button Grid.Column="2"
+                                <Button Grid.Column="1"
                                         Content="Zoeken"
                                         Style="{StaticResource PrimaryButtonStyle}"
                                         Click="ContentSearch_Click"/>
                             </Grid>
                             <StackPanel Spacing="8">
-                                <TextBlock Text="SNELLE VLAGGEN"
-                                           Style="{StaticResource SectionHeaderStyle}"/>
+                                <TextBlock Text="ZOEKBEREIK" Style="{StaticResource SectionHeaderStyle}"/>
+                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                    <RadioButton Content="Alles"
+                                                 GroupName="SearchScopeGroup"
+                                                 Style="{StaticResource ChipRadioStyle}"
+                                                 Tag="Alles"
+                                                 IsChecked="True"
+                                                 Checked="SearchScope_Checked"/>
+                                    <RadioButton Content="Productnamen"
+                                                 GroupName="SearchScopeGroup"
+                                                 Style="{StaticResource ChipRadioStyle}"
+                                                 Tag="Productnamen"
+                                                 Checked="SearchScope_Checked"/>
+                                    <RadioButton Content="Beschrijvingen"
+                                                 GroupName="SearchScopeGroup"
+                                                 Style="{StaticResource ChipRadioStyle}"
+                                                 Tag="Beschrijvingen"
+                                                 Checked="SearchScope_Checked"/>
+                                    <RadioButton Content="Recensies"
+                                                 GroupName="SearchScopeGroup"
+                                                 Style="{StaticResource ChipRadioStyle}"
+                                                 Tag="Recensies"
+                                                 Checked="SearchScope_Checked"/>
+                                    <RadioButton Content="Gebruikersnamen"
+                                                 GroupName="SearchScopeGroup"
+                                                 Style="{StaticResource ChipRadioStyle}"
+                                                 Tag="Gebruikersnamen"
+                                                 Checked="SearchScope_Checked"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Spacing="8">
+                                <TextBlock Text="SNELLE VLAGGEN" Style="{StaticResource SectionHeaderStyle}"/>
                                 <ItemsControl x:Name="FlagButtonsControl">
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
@@ -703,15 +739,10 @@
                                     </ItemsControl.ItemsPanel>
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate x:DataType="local:FlagViewModel">
-                                            <Button Tag="{x:Bind Pattern}"
-                                                    Click="FlagButton_Click"
-                                                    Background="#FFF0EE"
-                                                    Foreground="#FF3B30"
-                                                    CornerRadius="8"
-                                                    Padding="12,6"
-                                                    FontSize="12"
-                                                    FontWeight="SemiBold"
-                                                    BorderThickness="0">
+                                            <Button Tag="{x:Bind Pattern}" Click="FlagButton_Click"
+                                                    Background="#FFF0EE" Foreground="#FF3B30"
+                                                    CornerRadius="8" Padding="12,6"
+                                                    FontSize="12" FontWeight="SemiBold" BorderThickness="0">
                                                 <StackPanel Orientation="Horizontal" Spacing="4">
                                                     <TextBlock Text="●" FontSize="8" Foreground="#FF3B30" VerticalAlignment="Center"/>
                                                     <TextBlock Text="{x:Bind Name}" FontSize="12" FontWeight="SemiBold" Foreground="#FF3B30"/>
@@ -725,47 +756,30 @@
                     </Border>
                     <Border Grid.Row="2"
                             x:Name="SearchSummaryBar"
-                            Background="#FFFFFF"
-                            CornerRadius="10"
-                            Padding="16,10"
-                            BorderBrush="#E5E5EA"
-                            BorderThickness="1"
+                            Background="#FFFFFF" CornerRadius="10" Padding="16,10"
+                            BorderBrush="#E5E5EA" BorderThickness="1"
                             Visibility="Collapsed">
                         <StackPanel Orientation="Horizontal" Spacing="8">
                             <FontIcon Glyph="&#xE721;" FontSize="13" Foreground="#007AFF"/>
-                            <TextBlock x:Name="SearchResultsSummaryText"
-                                       FontSize="13"
-                                       Foreground="#1C1C1E"/>
+                            <TextBlock x:Name="SearchResultsSummaryText" FontSize="13" Foreground="#1C1C1E"/>
                         </StackPanel>
                     </Border>
-                    <Border Grid.Row="4"
-                            Background="#FFFFFF"
-                            CornerRadius="12"
-                            BorderBrush="#E5E5EA"
-                            BorderThickness="1">
+                    <Border Grid.Row="4" Background="#FFFFFF" CornerRadius="12"
+                            BorderBrush="#E5E5EA" BorderThickness="1">
                         <Grid>
                             <StackPanel x:Name="SearchEmptyState"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        Spacing="12">
-                                <FontIcon Glyph="&#xE721;"
-                                          FontSize="48"
-                                          Foreground="#C7C7CC"
+                                        VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="12">
+                                <FontIcon Glyph="&#xE721;" FontSize="48" Foreground="#C7C7CC"
                                           HorizontalAlignment="Center"/>
                                 <TextBlock Text="Voer een zoekterm in"
-                                           FontSize="16"
-                                           FontWeight="SemiBold"
-                                           Foreground="#8E8E93"
+                                           FontSize="16" FontWeight="SemiBold" Foreground="#8E8E93"
                                            HorizontalAlignment="Center"/>
                                 <TextBlock Text="Zoekresultaten verschijnen hier"
-                                           FontSize="13"
-                                           Foreground="#C7C7CC"
+                                           FontSize="13" Foreground="#C7C7CC"
                                            HorizontalAlignment="Center"/>
                             </StackPanel>
                             <ListView x:Name="SearchResultsListView"
-                                      Padding="8"
-                                      SelectionMode="None"
-                                      Visibility="Collapsed">
+                                      Padding="8" SelectionMode="None" Visibility="Collapsed">
                                 <ListView.ItemContainerStyle>
                                     <Style TargetType="ListViewItem">
                                         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -774,47 +788,31 @@
                                 </ListView.ItemContainerStyle>
                                 <ListView.ItemTemplate>
                                     <DataTemplate x:DataType="local:SearchResultViewModel">
-                                        <Border Padding="0,12"
-                                                BorderBrush="#F2F2F7"
-                                                BorderThickness="0,0,0,1">
+                                        <Border Padding="0,12" BorderBrush="#F2F2F7" BorderThickness="0,0,0,1">
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="Auto"/>
                                                     <ColumnDefinition Width="*"/>
                                                     <ColumnDefinition Width="Auto"/>
                                                 </Grid.ColumnDefinitions>
-                                                <Border Grid.Column="0"
-                                                        Background="{x:Bind TypeColor}"
-                                                        CornerRadius="6"
-                                                        Padding="8,4"
-                                                        Margin="0,0,14,0"
-                                                        VerticalAlignment="Top">
+                                                <Border Grid.Column="0" Background="{x:Bind TypeColor}"
+                                                        CornerRadius="6" Padding="8,4"
+                                                        Margin="0,0,14,0" VerticalAlignment="Top">
                                                     <TextBlock Text="{x:Bind ResultType}"
-                                                               FontSize="11"
-                                                               FontWeight="SemiBold"
-                                                               Foreground="White"/>
+                                                               FontSize="11" FontWeight="SemiBold" Foreground="White"/>
                                                 </Border>
                                                 <StackPanel Grid.Column="1" Spacing="4">
                                                     <TextBlock Text="{x:Bind Title}"
-                                                               FontSize="14"
-                                                               FontWeight="SemiBold"
-                                                               Foreground="#1C1C1E"/>
+                                                               FontSize="14" FontWeight="SemiBold" Foreground="#1C1C1E"/>
                                                     <TextBlock Text="{x:Bind Snippet}"
-                                                               FontSize="12"
-                                                               Foreground="#8E8E93"
-                                                               TextWrapping="Wrap"/>
+                                                               FontSize="12" Foreground="#8E8E93" TextWrapping="Wrap"/>
                                                     <TextBlock Text="{x:Bind ContextInfo}"
-                                                               FontSize="11"
-                                                               Foreground="#C7C7CC"/>
+                                                               FontSize="11" Foreground="#C7C7CC"/>
                                                 </StackPanel>
-                                                <Button Grid.Column="2"
-                                                        Content="Bekijk product"
+                                                <Button Grid.Column="2" Content="Bekijk product"
                                                         Style="{StaticResource SecondaryButtonStyle}"
-                                                        Tag="{x:Bind ProductId}"
-                                                        Click="ViewProductFromSearch_Click"
-                                                        VerticalAlignment="Center"
-                                                        Padding="12,6"
-                                                        FontSize="12"/>
+                                                        Tag="{x:Bind ProductId}" Click="ViewProductFromSearch_Click"
+                                                        VerticalAlignment="Center" Padding="12,6" FontSize="12"/>
                                             </Grid>
                                         </Border>
                                     </DataTemplate>
@@ -828,74 +826,77 @@
                 <TabViewItem.IconSource>
                     <FontIconSource Glyph="&#xE7BA;"/>
                 </TabViewItem.IconSource>
+
                 <Grid Padding="28,20">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="16"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <Border Grid.Row="0"
-                            Background="#FFFFFF"
-                            CornerRadius="12"
-                            Padding="16"
-                            BorderBrush="#E5E5EA"
-                            BorderThickness="1">
+                    <Border Grid.Row="0" Background="#FFFFFF" CornerRadius="12" Padding="16"
+                            BorderBrush="#E5E5EA" BorderThickness="1">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <StackPanel Orientation="Horizontal" Spacing="12">
-                                <ComboBox x:Name="ReportStatusFilter"
-                                          Style="{StaticResource ModernComboBoxStyle}"
-                                          Width="180"
-                                          SelectedIndex="0"
-                                          SelectionChanged="ReportStatusFilter_SelectionChanged">
-                                    <ComboBoxItem Content="Alle meldingen"/>
-                                    <ComboBoxItem Content="Open"/>
-                                    <ComboBoxItem Content="In behandeling"/>
-                                    <ComboBoxItem Content="Opgelost"/>
-                                </ComboBox>
+
+                            <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="12"
+                                        VerticalAlignment="Center">
+                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                    <RadioButton Content="Alle meldingen"
+                                                 GroupName="ReportStatusGroup"
+                                                 Style="{StaticResource ChipRadioStyle}"
+                                                 Tag="all"
+                                                 IsChecked="True"
+                                                 Checked="ReportStatusFilter_Checked"/>
+                                    <RadioButton Content="Open"
+                                                 GroupName="ReportStatusGroup"
+                                                 Style="{StaticResource ChipRadioStyle}"
+                                                 Tag="open"
+                                                 Checked="ReportStatusFilter_Checked"/>
+                                    <RadioButton Content="In behandeling"
+                                                 GroupName="ReportStatusGroup"
+                                                 Style="{StaticResource ChipRadioStyle}"
+                                                 Tag="pending"
+                                                 Checked="ReportStatusFilter_Checked"/>
+                                    <RadioButton Content="Opgelost"
+                                                 GroupName="ReportStatusGroup"
+                                                 Style="{StaticResource ChipRadioStyle}"
+                                                 Tag="resolved"
+                                                 Checked="ReportStatusFilter_Checked"/>
+                                </StackPanel>
+
                                 <TextBox x:Name="ReportSearchBox"
                                          Style="{StaticResource SearchBoxStyle}"
                                          PlaceholderText="Zoek op productnaam of reden..."
-                                         Width="280"
+                                         Width="260"
                                          TextChanged="ReportSearch_TextChanged"/>
                             </StackPanel>
+
                             <TextBlock Grid.Column="1"
                                        x:Name="ReportCountLabel"
-                                       FontSize="13"
-                                       Foreground="#8E8E93"
-                                       VerticalAlignment="Center"/>
+                                       FontSize="13" Foreground="#8E8E93" VerticalAlignment="Center"/>
                         </Grid>
                     </Border>
-                    <Border Grid.Row="2"
-                            Background="#FFFFFF"
-                            CornerRadius="12"
-                            BorderBrush="#E5E5EA"
-                            BorderThickness="1">
+
+                    <Border Grid.Row="2" Background="#FFFFFF" CornerRadius="12"
+                            BorderBrush="#E5E5EA" BorderThickness="1">
                         <Grid>
                             <StackPanel x:Name="ReportsEmptyState"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        Spacing="12">
-                                <FontIcon Glyph="&#xE930;"
-                                          FontSize="48"
-                                          Foreground="#C7C7CC"
+                                        VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="12">
+                                <FontIcon Glyph="&#xE930;" FontSize="48" Foreground="#C7C7CC"
                                           HorizontalAlignment="Center"/>
                                 <TextBlock Text="Geen openstaande meldingen"
-                                           FontSize="16"
-                                           FontWeight="SemiBold"
-                                           Foreground="#8E8E93"
+                                           FontSize="16" FontWeight="SemiBold" Foreground="#8E8E93"
                                            HorizontalAlignment="Center"/>
                                 <TextBlock Text="Alle meldingen zijn behandeld"
-                                           FontSize="13"
-                                           Foreground="#C7C7CC"
+                                           FontSize="13" Foreground="#C7C7CC"
                                            HorizontalAlignment="Center"/>
                             </StackPanel>
+
                             <ListView x:Name="ReportsListView"
-                                      Padding="8"
-                                      SelectionMode="None">
+                                      Padding="8" SelectionMode="None">
                                 <ListView.ItemContainerStyle>
                                     <Style TargetType="ListViewItem">
                                         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -904,83 +905,57 @@
                                 </ListView.ItemContainerStyle>
                                 <ListView.ItemTemplate>
                                     <DataTemplate x:DataType="local:ReportModerationViewModel">
-                                        <Border Padding="0,16"
-                                                BorderBrush="#F2F2F7"
-                                                BorderThickness="0,0,0,1">
+                                        <Border Padding="0,16" BorderBrush="#F2F2F7" BorderThickness="0,0,0,1">
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="*"/>
-                                                    <ColumnDefinition Width="200"/>
                                                     <ColumnDefinition Width="Auto"/>
                                                 </Grid.ColumnDefinitions>
+
+                                                <!-- Report info -->
                                                 <StackPanel Grid.Column="0" Spacing="6">
                                                     <StackPanel Orientation="Horizontal" Spacing="8">
-                                                        <Border Background="#FFF0EE"
-                                                                CornerRadius="6"
-                                                                Padding="8,3">
+                                                        <Border Background="#FFF0EE" CornerRadius="6" Padding="8,3">
                                                             <TextBlock Text="{x:Bind StatusDisplay}"
-                                                                       FontSize="11"
-                                                                       FontWeight="SemiBold"
-                                                                       Foreground="#FF3B30"/>
+                                                                       FontSize="11" FontWeight="SemiBold" Foreground="#FF3B30"/>
                                                         </Border>
                                                         <TextBlock Text="{x:Bind ProductName}"
-                                                                   FontSize="14"
-                                                                   FontWeight="SemiBold"
-                                                                   Foreground="#1C1C1E"
+                                                                   FontSize="14" FontWeight="SemiBold" Foreground="#1C1C1E"
                                                                    VerticalAlignment="Center"/>
                                                     </StackPanel>
                                                     <TextBlock Text="{x:Bind Reason}"
-                                                               FontSize="13"
-                                                               Foreground="#3C3C43"
-                                                               TextWrapping="Wrap"/>
+                                                               FontSize="13" Foreground="#3C3C43" TextWrapping="Wrap"/>
                                                     <StackPanel Orientation="Horizontal" Spacing="8">
                                                         <TextBlock Text="{x:Bind ReporterName}"
-                                                                   FontSize="12"
-                                                                   Foreground="#8E8E93"/>
-                                                        <TextBlock Text="·"
-                                                                   FontSize="12"
-                                                                   Foreground="#C7C7CC"/>
+                                                                   FontSize="12" Foreground="#8E8E93"/>
+                                                        <TextBlock Text="·" FontSize="12" Foreground="#C7C7CC"/>
                                                         <TextBlock Text="{x:Bind FlagName}"
-                                                                   FontSize="12"
-                                                                   Foreground="#FF9500"/>
+                                                                   FontSize="12" Foreground="#FF9500"/>
                                                     </StackPanel>
                                                 </StackPanel>
                                                 <StackPanel Grid.Column="1"
-                                                            VerticalAlignment="Center"
-                                                            Margin="16,0"
-                                                            Spacing="6">
-                                                    <TextBlock Text="Categorie toewijzen"
-                                                               FontSize="11"
-                                                               Foreground="#8E8E93"
-                                                               FontWeight="Medium"/>
-                                                    <ComboBox Tag="{x:Bind ProductId}"
-                                                              Style="{StaticResource ModernComboBoxStyle}"
-                                                              x:Name="ReportCategoryComboBox"
-                                                              PlaceholderText="Kies categorie..."
-                                                              SelectionChanged="ReportCategoryCombo_SelectionChanged"/>
-                                                </StackPanel>
-                                                <StackPanel Grid.Column="2"
-                                                            Orientation="Vertical"
-                                                            Spacing="6"
-                                                            VerticalAlignment="Center">
+                                                            Orientation="Vertical" Spacing="6"
+                                                            VerticalAlignment="Center" Margin="16,0,0,0">
                                                     <Button Content="Product goedkeuren"
                                                             Style="{StaticResource SuccessButtonStyle}"
                                                             Tag="{x:Bind Id}"
                                                             Click="ApproveFromReport_Click"
-                                                            Padding="12,7"
-                                                            FontSize="12"/>
+                                                            Padding="12,7" FontSize="12"/>
+                                                    <Button Content="Categorie toewijzen"
+                                                            Style="{StaticResource SecondaryButtonStyle}"
+                                                            Tag="{x:Bind ProductId}"
+                                                            Click="AssignCategoryFromReport_Click"
+                                                            Padding="12,7" FontSize="12"/>
                                                     <Button Content="Product verwijderen"
                                                             Style="{StaticResource DestructiveButtonStyle}"
                                                             Tag="{x:Bind ProductId}"
                                                             Click="DeleteFromReport_Click"
-                                                            Padding="12,7"
-                                                            FontSize="12"/>
+                                                            Padding="12,7" FontSize="12"/>
                                                     <Button Content="Melding sluiten"
                                                             Style="{StaticResource SecondaryButtonStyle}"
                                                             Tag="{x:Bind Id}"
                                                             Click="CloseReport_Click"
-                                                            Padding="12,7"
-                                                            FontSize="12"/>
+                                                            Padding="12,7" FontSize="12"/>
                                                 </StackPanel>
                                             </Grid>
                                         </Border>
@@ -1000,9 +975,7 @@
                        DefaultButton="Primary">
             <StackPanel Spacing="16" Width="320">
                 <TextBlock x:Name="CategoryDialogProductName"
-                           FontSize="14"
-                           FontWeight="SemiBold"
-                           Foreground="#1C1C1E"/>
+                           FontSize="14" FontWeight="SemiBold" Foreground="#1C1C1E"/>
                 <ComboBox x:Name="CategoryAssignComboBox"
                           Style="{StaticResource ModernComboBoxStyle}"
                           PlaceholderText="Kies een categorie..."
@@ -1010,9 +983,7 @@
                 <TextBox x:Name="CategoryAssignNote"
                          Style="{StaticResource SearchBoxStyle}"
                          PlaceholderText="Notitie (optioneel)..."
-                         AcceptsReturn="True"
-                         Height="80"
-                         TextWrapping="Wrap"/>
+                         AcceptsReturn="True" Height="80" TextWrapping="Wrap"/>
             </StackPanel>
         </ContentDialog>
         <ContentDialog x:Name="ModerationActionDialog"
@@ -1023,38 +994,26 @@
                        DefaultButton="Primary">
             <StackPanel Spacing="16" Width="340">
                 <TextBlock x:Name="ModerationActionDescription"
-                           FontSize="14"
-                           Foreground="#3C3C43"
-                           TextWrapping="Wrap"/>
+                           FontSize="14" Foreground="#3C3C43" TextWrapping="Wrap"/>
                 <TextBox x:Name="ModerationNoteBox"
                          Style="{StaticResource SearchBoxStyle}"
                          PlaceholderText="Notitie voor het logboek..."
-                         AcceptsReturn="True"
-                         Height="80"
-                         TextWrapping="Wrap"/>
+                         AcceptsReturn="True" Height="80" TextWrapping="Wrap"/>
             </StackPanel>
         </ContentDialog>
-        <Border x:Name="LoadingOverlay"
-                Background="#80FFFFFF"
-                Visibility="Collapsed">
-            <StackPanel VerticalAlignment="Center"
-                        HorizontalAlignment="Center"
-                        Spacing="16">
-                <ProgressRing IsActive="True"
-                              Width="40"
-                              Height="40"
-                              Foreground="#007AFF"/>
-                <TextBlock Text="Laden..."
-                           FontSize="14"
-                           Foreground="#8E8E93"
+        <Border x:Name="LoadingOverlay" Background="#80FFFFFF" Visibility="Collapsed">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="16">
+                <ProgressRing IsActive="True" Width="40" Height="40" Foreground="#007AFF"/>
+                <TextBlock Text="Laden..." FontSize="14" Foreground="#8E8E93"
                            HorizontalAlignment="Center"/>
             </StackPanel>
         </Border>
+
+
         <InfoBar x:Name="StatusInfoBar"
                  IsOpen="False"
                  VerticalAlignment="Bottom"
                  HorizontalAlignment="Stretch"
                  Margin="28,0,28,24"/>
-
     </Grid>
 </Page>
