@@ -93,7 +93,7 @@ namespace MakersMarkt.Dashboards
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            // Frame.Navigate(typeof(AddProductPage), _currentUser);
+            Frame.Navigate(typeof(AddProductPage), _currentUser);
         }
 
         private void Edit_Click(object sender, RoutedEventArgs e)
