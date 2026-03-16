@@ -15,6 +15,14 @@
             <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#cdd8c5"/>
             <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#bfcab7"/>
 
+            <SolidColorBrush x:Key="NeutralButtonBackground" Color="#C2A49C"/>
+            <SolidColorBrush x:Key="NeutralButtonBackgroundPointerOver" Color="#AD9088"/>
+            <SolidColorBrush x:Key="NeutralButtonBackgroundPressed" Color="#987F78"/>
+
+            <SolidColorBrush x:Key="WhiteButtonBackground" Color="#FFFFFF"/>
+            <SolidColorBrush x:Key="WhiteButtonBackgroundPointerOver" Color="#FDF5F4"/>
+            <SolidColorBrush x:Key="WhiteButtonBackgroundPressed" Color="#EFE5E4"/>
+
             <SolidColorBrush x:Key="TextControlBackground" Color="#D5C7BC"/>
             <SolidColorBrush x:Key="TextControlBackgroundPointerOver" Color="#cbb9ad"/>
             <SolidColorBrush x:Key="TextControlBackgroundFocused" Color="#cbb9ad"/>
@@ -44,7 +52,36 @@
 
                 <Setter Property="UseSystemFocusVisuals" Value="False"/>
                 <Setter Property="BackgroundSizing" Value="InnerBorderEdge"/>
+                
             </Style>
+
+            <Style x:Key="BrownButtonStyle" TargetType="Button">
+                <Setter Property="Background" Value="{StaticResource NeutralButtonBackground}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource NeutralButtonBackground}"/>
+                <Setter Property="Foreground" Value="#5C504D"/>
+                <Setter Property="CornerRadius" Value="8"/>
+                <Setter Property="Height" Value="45"/>
+                <Setter Property="MinWidth" Value="120"/>
+                <Setter Property="Padding" Value="12,6"/>
+
+                <Setter Property="UseSystemFocusVisuals" Value="False"/>
+                <Setter Property="BackgroundSizing" Value="InnerBorderEdge"/>
+            </Style>
+
+            <Style x:Key="WhiteButtonStyle" TargetType="Button">
+                <Setter Property="Background" Value="{StaticResource WhiteButtonBackground}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource WhiteButtonBackground}"/>
+                <Setter Property="Foreground" Value="#5C504D"/>
+                <Setter Property="CornerRadius" Value="8"/>
+                <Setter Property="Height" Value="45"/>
+                <Setter Property="MinWidth" Value="120"/>
+                <Setter Property="Padding" Value="12,6"/>
+
+                <Setter Property="UseSystemFocusVisuals" Value="False"/>
+                <Setter Property="BackgroundSizing" Value="InnerBorderEdge"/>
+            </Style>
+            
+            
 
             <Style x:Key="PastelComboBox" TargetType="ComboBox">
                 <Setter Property="Background" Value="{StaticResource TextControlBackground}"/>
@@ -59,7 +96,7 @@
             </Style>
 
             <Style x:Key="CuteHeaderText" TargetType="TextBlock">
-                <Setter Property="FontFamily" Value="Segoe Script"/>
+                <Setter Property="FontFamily" Value="Poppins"/>
                 <Setter Property="FontSize" Value="20"/>
                 <Setter Property="Foreground" Value="#3A2F28"/>
                 <Setter Property="Margin" Value="0,10,0,4"/>

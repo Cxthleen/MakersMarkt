@@ -35,6 +35,7 @@ namespace MakersMarkt.Dashboards
             base.OnNavigatedTo(e);
 
             WelcomeText.Text = $"Welcome, {_currentUser.DisplayName}";
+            (App.MainAppWindow as MainWindow)?.Header.SetLoggedIn(true);
         }
     }
 }

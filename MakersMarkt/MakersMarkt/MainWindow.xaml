@@ -19,7 +19,9 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <local:AppHeader Grid.Row="0"/>
+        <local:AppHeader
+            x:Name="HeaderControl"
+            Grid.Row="0"/>
 
         <Frame x:Name="RootFrame" Grid.Row="1"/>
     </Grid>

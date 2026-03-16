@@ -2,7 +2,7 @@
 
 namespace MakersMarkt.Data.Models
 {
-    class Flag
+    public class Flag
     {
         public int Id { get; set; }
         public string Name { get; set; }

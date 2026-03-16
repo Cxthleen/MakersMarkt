@@ -1,6 +1,6 @@
 ﻿namespace MakersMarkt.Data.Models
 {
-    class Report
+    public class Report
     {
         public int Id { get; set; }
         public string Reason { get; set; }

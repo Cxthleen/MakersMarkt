@@ -43,6 +43,7 @@ namespace MakersMarkt
                 await ShowMessage("Oops! You forgot something.");
                 return;
             }
+                (App.MainAppWindow as MainWindow)?.Header.SetLoggedIn(false);
             string username = UsernameBox.Text;
             string password = PasswordBox.Password;
 
@@ -52,6 +53,9 @@ namespace MakersMarkt
 
             if (user != null && BCrypt.Net.BCrypt.Verify(password, user.Password))
             {
+                (App.MainAppWindow as MainWindow).LoggedInUser = user;
+                (App.MainAppWindow as MainWindow).Header.SetUser(user);
+
                 await ShowMessage($"Welcome {user.Role} !");
 
                 switch (user.Role)

@@ -27,22 +27,58 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Text="MakersMarkt"
-                   FontFamily="Segoe UI Rounded"
-                   FontSize="28"
-                   FontWeight="SemiBold"
-                   Foreground="#42352C"
-                   VerticalAlignment="Center"/>
+                           FontFamily="Segoe UI Rounded"
+                           FontSize="28"
+                           FontWeight="SemiBold"
+                           Foreground="#42352C"
+                           VerticalAlignment="Center"/>
 
                 <StackPanel Orientation="Horizontal"
-                    Spacing="12"
-                    VerticalAlignment="Center"
-                    Grid.Column="1">
+                            Spacing="12"
+                            VerticalAlignment="Center"
+                            Grid.Column="1">
 
-                    <Button Content="Logout"
-                    Style="{StaticResource PastelButtonStyle}"
-                    MinWidth="80"
-                    Click="Logout_Click"/>
+                    <Button x:Name="HomeButton"
+                            Content="Home"
+                            Click="Home_Click"
+                            Visibility="Collapsed"/>
+
+                    <DropDownButton x:Name="ProfileButton"
+                                    Visibility="Collapsed"
+                                    Background="{StaticResource WhiteButtonBackground}"
+                                    BorderBrush="{StaticResource WhiteButtonBackground}">
+                        <DropDownButton.Resources>
+                            <SolidColorBrush x:Key="ButtonBackground" Color="#FFFFFF"/>
+                            <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#FFFFFF"/>
+                            <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#FFFFFF"/>
+                        </DropDownButton.Resources>
+
+                        <DropDownButton.Content>
+                            <Ellipse Width="38" Height="38">
+                                <Ellipse.Fill>
+                                    <ImageBrush x:Name="ProfileImageBrush"
+                                                ImageSource="ms-appx:///Assets/profile.png"/>
+                                </Ellipse.Fill>
+                            </Ellipse>
+                        </DropDownButton.Content>
+
+
+                        <DropDownButton.Flyout>
+                            <MenuFlyout>
+
+                                <MenuFlyoutItem Text="View Profile"
+                                                Click="ViewProfile_Click"/>
+
+                                <MenuFlyoutItem Text="Logout"
+                                                Click="Logout_Click"/>
+
+                            </MenuFlyout>
+                        </DropDownButton.Flyout>
+
+                    </DropDownButton>
+
                 </StackPanel>
+
             </Grid>
 
         </Border>
