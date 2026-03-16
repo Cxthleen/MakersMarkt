@@ -1,6 +1,6 @@
 ﻿namespace MakersMarkt.Data.Models
 {
-    class Moderation
+    public class Moderation
     {
         public int Id { get; set; }
         public string ActionType { get; set; }

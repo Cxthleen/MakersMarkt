@@ -27,6 +27,7 @@ namespace MakersMarkt.Dashboards
             base.OnNavigatedTo(e);
             _currentUser = e.Parameter as User;
             WelcomeText.Text = $"Welcome, {_currentUser.DisplayName}";
+            (App.MainAppWindow as MainWindow)?.Header.SetLoggedIn(true);
             LoadProducts();
         }
 

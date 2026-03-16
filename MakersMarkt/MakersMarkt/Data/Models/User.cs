@@ -2,7 +2,7 @@
 
 namespace MakersMarkt.Data.Models
 {
-    class User
+    public class User
     {
         public int Id { get; set; }
         public string Username { get; set; }
@@ -10,6 +10,8 @@ namespace MakersMarkt.Data.Models
         public string Role { get; set; }
         public string DisplayName { get; set; }
         public string Biography { get; set; }
+        public string? ProfileImage { get; set; }
+
 
         public ICollection<Product> Products { get; set; }
         public ICollection<Order> Orders { get; set; }

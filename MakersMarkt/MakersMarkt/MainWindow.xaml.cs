@@ -1,3 +1,5 @@
+using MakersMarkt.Dashboards;
+using MakersMarkt.Data.Models;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -23,6 +25,9 @@ namespace MakersMarkt
     /// </summary>
     public sealed partial class MainWindow : Window
     {
+        public AppHeader Header => HeaderControl;
+        public User LoggedInUser { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -34,5 +39,30 @@ namespace MakersMarkt
             RootFrame.Navigate(typeof(LoginPage));
         }
 
+        public void NavigateToProfile()
+        {
+            RootFrame.Navigate(typeof(ProfilePage), LoggedInUser);
+        }
+
+        public void NavigateToHome()
+        {
+            if (LoggedInUser == null)
+                return;
+
+            switch (LoggedInUser.Role)
+            {
+                case "admin":
+                    RootFrame.Navigate(typeof(AdminDashboard), LoggedInUser);
+                    break;
+
+                case "seller":
+                    RootFrame.Navigate(typeof(SellerDashboard), LoggedInUser);
+                    break;
+
+                case "buyer":
+                    RootFrame.Navigate(typeof(BuyerDashboard), LoggedInUser);
+                    break;
+            }
+        }
     }
 }
