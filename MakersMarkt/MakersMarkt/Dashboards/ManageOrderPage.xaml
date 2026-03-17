@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="MakersMarkt.Dashboards.ManageOrderPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="White">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid Padding="40">
+            <Border Background="#e8e8e8" CornerRadius="4" Padding="24">
+                <StackPanel Spacing="16">
+
+                    <!-- BACK -->
+                    <Button Content="← Back"
+                            Background="#444444"
+                            Foreground="White"
+                            FontWeight="SemiBold"
+                            Click="BackButton_Click"
+                            HorizontalAlignment="Left"/>
+
+                    <!-- ORDER INFO -->
+                    <Border Background="White" CornerRadius="4" Padding="24">
+                        <StackPanel Spacing="8">
+                            <TextBlock x:Name="OrderTitle"
+                                       FontSize="24"
+                                       FontWeight="Bold"/>
+                            <TextBlock x:Name="BuyerName"
+                                       Foreground="#666666"
+                                       FontSize="14"/>
+                            <TextBlock x:Name="OrderDate"
+                                       Foreground="#999999"
+                                       FontSize="13"/>
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <TextBlock Text="Current status:"
+                                           Foreground="#999999"
+                                           FontSize="13"
+                                           VerticalAlignment="Center"/>
+                                <TextBlock x:Name="CurrentStatus"
+                                           FontSize="13"
+                                           FontWeight="SemiBold"
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- PRODUCTS IN ORDER -->
+                    <Border Background="White" CornerRadius="4" Padding="24">
+                        <StackPanel Spacing="12">
+                            <TextBlock Text="Products in this order"
+                                       FontSize="16"
+                                       FontWeight="SemiBold"/>
+                            <Border Height="2" Background="#e8e8e8"/>
+                            <ListView x:Name="ProductsListView"
+                                      SelectionMode="None">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate x:DataType="x:String">
+                                        <TextBlock Text="{x:Bind}"
+                                                   FontSize="13"
+                                                   Foreground="#444444"
+                                                   Margin="0,4,0,4"/>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- UPDATE STATUS -->
+                    <Border Background="White" CornerRadius="4" Padding="24">
+                        <StackPanel Spacing="12">
+                            <TextBlock Text="Update Status"
+                                       FontSize="16"
+                                       FontWeight="SemiBold"/>
+                            <Border Height="2" Background="#e8e8e8"/>
+
+                            <StackPanel Spacing="6">
+                                <TextBlock Text="New status" FontSize="13" Foreground="#444444"/>
+                                <DropDownButton x:Name="StatusDropDown"
+                                                Content="Select status"
+                                                Background="#f0f0f0"
+                                                HorizontalAlignment="Stretch">
+                                    <DropDownButton.Flyout>
+                                        <MenuFlyout>
+                                            <MenuFlyoutItem Text="in_productie" Click="Status_Click"/>
+                                            <MenuFlyoutItem Text="verzonden"    Click="Status_Click"/>
+                                            <MenuFlyoutItem Text="geweigerd"    Click="Status_Click"/>
+                                        </MenuFlyout>
+                                    </DropDownButton.Flyout>
+                                </DropDownButton>
+                            </StackPanel>
+
+                            <StackPanel Spacing="6">
+                                <TextBlock Text="Description / note for buyer"
+                                           FontSize="13" Foreground="#444444"/>
+                                <TextBox x:Name="DescriptionTextBox"
+                                         PlaceholderText="Add a message for the buyer..."
+                                         Background="#f0f0f0"
+                                         BorderThickness="0"
+                                         Padding="12,10"
+                                         AcceptsReturn="False"/>
+                            </StackPanel>
+
+                            <!-- Refund warning -->
+                            <Border x:Name="RefundWarning"
+                                    Background="#fff3f3"
+                                    CornerRadius="4"
+                                    Padding="14"
+                                    Visibility="Collapsed">
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <TextBlock Text="⚠️" FontSize="16" VerticalAlignment="Center"/>
+                                    <TextBlock Text="Selecting 'geweigerd' will automatically create a refund transaction and notify the buyer."
+                                               FontSize="13"
+                                               Foreground="#e74c3c"
+                                               TextWrapping="Wrap"/>
+                                </StackPanel>
+                            </Border>
+
+                            <Button x:Name="SaveButton"
+                                    Content="Save Status"
+                                    Background="#0c5adb"
+                                    Foreground="White"
+                                    FontWeight="SemiBold"
+                                    HorizontalAlignment="Stretch"
+                                    Padding="0,12"
+                                    Click="SaveButton_Click"/>
+
+                            <TextBlock x:Name="FeedbackText"
+                                       FontSize="13"
+                                       HorizontalAlignment="Center"
+                                       Visibility="Collapsed"/>
+                        </StackPanel>
+                    </Border>
+
+                </StackPanel>
+            </Border>
+        </Grid>
+    </ScrollViewer>
+</Page>

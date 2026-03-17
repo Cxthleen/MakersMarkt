@@ -24,6 +24,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="160"/>
+                        <ColumnDefinition Width="160"/>
                     </Grid.ColumnDefinitions>
 
                     <StackPanel Grid.Column="0">
@@ -37,11 +38,18 @@
                                    VerticalAlignment="Center"/>
                     </StackPanel>
 
+                    <Button Content="My Orders"
+                            Background="#444444"
+                            Foreground="White"
+                            Click="OrdersButton_Click"
+                            Grid.Column="1"
+                            VerticalAlignment="Center"/>
+
                     <Button Content="+ Add Product"
                             Background="#0c5adb"
                             Foreground="White"
                             Click="AddButton_Click"
-                            Grid.Column="1"
+                            Grid.Column="2"
                             VerticalAlignment="Center"/>
                 </Grid>
 
@@ -54,7 +62,6 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <!-- Filter by Category -->
                     <StackPanel Grid.Column="0" Margin="0,0,12,0">
                         <TextBlock Text="Category" FontSize="12" Foreground="#666666" Margin="0,0,0,4"/>
                         <ComboBox x:Name="CategoryFilter"
@@ -65,7 +72,6 @@
                         </ComboBox>
                     </StackPanel>
 
-                    <!-- Filter by Complexity -->
                     <StackPanel Grid.Column="1" Margin="0,0,12,0">
                         <TextBlock Text="Complexity" FontSize="12" Foreground="#666666" Margin="0,0,0,4"/>
                         <ComboBox x:Name="ComplexityFilter"
@@ -79,7 +85,6 @@
                         </ComboBox>
                     </StackPanel>
 
-                    <!-- Sort -->
                     <StackPanel Grid.Column="2" Margin="0,0,12,0">
                         <TextBlock Text="Sort by" FontSize="12" Foreground="#666666" Margin="0,0,0,4"/>
                         <ComboBox x:Name="SortBy"
@@ -92,7 +97,6 @@
                             <ComboBoxItem Content="Durability"/>
                         </ComboBox>
                     </StackPanel>
-
                 </Grid>
 
                 <!-- LIST OF PRODUCTS -->

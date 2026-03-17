@@ -96,6 +96,10 @@ namespace MakersMarkt.Dashboards
         {
             Frame.Navigate(typeof(AddProductPage), _currentUser);
         }
+        private void OrdersButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(SellerOrdersPage), _currentUser);
+        }
 
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
