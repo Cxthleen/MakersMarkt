@@ -206,12 +206,12 @@ namespace MakersMarkt.Data.Context
 
             // Notifications
             modelBuilder.Entity<Notification>().HasData(
-                new Notification { Id = 1, Type = "order_completed", IsRead = false, UserId = 3 },
-                new Notification { Id = 2, Type = "new_review", IsRead = false, UserId = 2 },
-                new Notification { Id = 3, Type = "new_order", IsRead = false, UserId = 5 },
-                new Notification { Id = 4, Type = "new_review", IsRead = true, UserId = 4 },
-                new Notification { Id = 5, Type = "order_completed", IsRead = false, UserId = 6 },
-                new Notification { Id = 6, Type = "new_order", IsRead = false, UserId = 4 }
+                new Notification { Id = 1, Type = "Order Completed.", IsRead = false, UserId = 3 },
+                new Notification { Id = 2, Type = "New review.", IsRead = false, UserId = 2 },
+                new Notification { Id = 3, Type = "New order.", IsRead = false, UserId = 5 },
+                new Notification { Id = 4, Type = "New review.", IsRead = true, UserId = 4 },
+                new Notification { Id = 5, Type = "Order completed.", IsRead = false, UserId = 6 },
+                new Notification { Id = 6, Type = "New order.", IsRead = false, UserId = 4 }
             );
 
             // Flags

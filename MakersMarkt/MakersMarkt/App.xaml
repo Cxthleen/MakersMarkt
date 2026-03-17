@@ -10,6 +10,8 @@
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
                 <!-- Other merged dictionaries here -->
             </ResourceDictionary.MergedDictionaries>
+            
+
             <!-- Other app resources here -->
             <SolidColorBrush x:Key="ButtonBackground" Color="#dee8d5"/>
             <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#cdd8c5"/>
@@ -52,7 +54,7 @@
 
                 <Setter Property="UseSystemFocusVisuals" Value="False"/>
                 <Setter Property="BackgroundSizing" Value="InnerBorderEdge"/>
-                
+
             </Style>
 
             <Style x:Key="BrownButtonStyle" TargetType="Button">
@@ -80,8 +82,8 @@
                 <Setter Property="UseSystemFocusVisuals" Value="False"/>
                 <Setter Property="BackgroundSizing" Value="InnerBorderEdge"/>
             </Style>
-            
-            
+
+
 
             <Style x:Key="PastelComboBox" TargetType="ComboBox">
                 <Setter Property="Background" Value="{StaticResource TextControlBackground}"/>
@@ -106,6 +108,22 @@
                 <Setter Property="Background" Value="White"/>
                 <Setter Property="CornerRadius" Value="25"/>
                 <Setter Property="Foreground" Value="#42352C"/>
+            </Style>
+
+            <Style x:Key="NotificationBadgeStyle" TargetType="Button">
+                <Setter Property="Width" Value="18"/>
+                <Setter Property="Height" Value="18"/>
+                <Setter Property="Background" Value="#E57373"/>
+                <!-- zacht rood -->
+                <Setter Property="BorderBrush" Value="#D32F2F"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="FontSize" Value="10"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="CornerRadius" Value="20"/>
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="BorderThickness" Value="1"/>
             </Style>
         </ResourceDictionary>
     </Application.Resources>
