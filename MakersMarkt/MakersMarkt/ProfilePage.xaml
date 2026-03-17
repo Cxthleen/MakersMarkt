@@ -8,6 +8,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
+    <Page.Resources>
+        <local:BoolToColorConverter x:Key="BoolToColorConverter"/>
+    </Page.Resources>
+
     <Grid Background="#FFF9F7F6" Padding="40">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -20,7 +24,6 @@
                HorizontalAlignment="Center"
                Margin="0,0,0,20"/>
 
-        <!-- ScrollViewer prevents clipping -->
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
 
             <Border Background="White"
@@ -44,7 +47,6 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <!-- Profile Picture -->
                     <Grid Grid.Row="0" HorizontalAlignment="Center">
                         <Ellipse Width="120" Height="120">
                             <Ellipse.Fill>
@@ -68,7 +70,6 @@
                             CornerRadius="20"/>
                     </Grid>
 
-                    <!-- Display Name -->
                     <TextBlock Grid.Row="1"
                            Text="{Binding DisplayName}"
                            x:Name="ProfileTitle"
@@ -77,27 +78,23 @@
                            Foreground="#5C504D"
                            HorizontalAlignment="Center"/>
 
-                    <!-- Username -->
                     <TextBlock Grid.Row="2"
                            Text="{Binding Username}"
                            FontSize="16"
                            Foreground="#7A6F6B"
                            HorizontalAlignment="Center"/>
 
-                    <!-- Role -->
                     <TextBlock Grid.Row="3"
                            Text="{Binding Role}"
                            FontSize="14"
                            Foreground="#A08F89"
                            HorizontalAlignment="Center"/>
 
-                    <!-- Divider -->
                     <Rectangle Grid.Row="4"
                            Height="1"
                            Fill="#E8DCD6"
                            Margin="0,10"/>
 
-                    <!-- Editable Fields -->
                     <StackPanel Grid.Row="5" Spacing="12">
 
                         <StackPanel Orientation="Horizontal" Spacing="10">
@@ -124,7 +121,6 @@
 
                     </StackPanel>
 
-                    <!-- Stats -->
                     <Grid Grid.Row="6" ColumnSpacing="30" HorizontalAlignment="Center">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
@@ -138,8 +134,8 @@
                                    FontWeight="Bold"
                                    Foreground="#5C504D"/>
                             <TextBlock Text="Orders"
-                                   FontSize="14"
-                                   Foreground="#7A6F6B"/>
+                               FontSize="14"
+                               Foreground="#7A6F6B"/>
                         </StackPanel>
 
                         <StackPanel Grid.Column="1" HorizontalAlignment="Center">
@@ -148,22 +144,22 @@
                                    FontWeight="Bold"
                                    Foreground="#5C504D"/>
                             <TextBlock Text="Reviews"
-                                   FontSize="14"
-                                   Foreground="#7A6F6B"/>
+                               FontSize="14"
+                               Foreground="#7A6F6B"/>
                         </StackPanel>
 
                         <StackPanel Grid.Column="2" HorizontalAlignment="Center">
-                            <TextBlock Text="{Binding Notifications.Count}"
-                                   FontSize="22"
-                                   FontWeight="Bold"
-                                   Foreground="#5C504D"/>
+                            <Button Content="{Binding Notifications.Count}"
+                                Click="OpenNotifications_Click"
+                                Style="{StaticResource NotificationBadgeStyle}"/>
+
                             <TextBlock Text="Notifications"
-                                   FontSize="14"
-                                   Foreground="#7A6F6B"/>
+                               FontSize="14"
+                               Foreground="#7A6F6B"
+                               VerticalAlignment="Center"/>
                         </StackPanel>
                     </Grid>
 
-                    <!-- Save Button -->
                     <Button Grid.Row="7"
                         Content="Save"
                         Click="Save_Click"
@@ -172,6 +168,33 @@
                         Margin="0,20,0,0"/>
                 </Grid>
             </Border>
+            
         </ScrollViewer>
+        <ContentDialog x:Name="NotificationsDialog"
+               Title="Meldingen"
+               PrimaryButtonText="Sluiten"
+               DefaultButton="Primary"
+               Background="White"
+               CornerRadius="12">
+
+            <ListView ItemsSource="{Binding Notifications}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" Spacing="10" Tapped="Notification_Tapped">
+
+                            <Ellipse Width="10" Height="10"
+                             Fill="{Binding IsRead, Converter={StaticResource BoolToColorConverter}}"/>
+
+                            <StackPanel>
+                                <TextBlock Text="{Binding Message}" FontSize="16"/>
+                                <TextBlock Text="{Binding CreatedAt}" FontSize="12" Foreground="Gray"/>
+                            </StackPanel>
+
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+        </ContentDialog>
     </Grid>
 </Page>

@@ -1,5 +1,7 @@
 using MakersMarkt.Data.Context;
 using MakersMarkt.Data.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -36,10 +38,11 @@ namespace MakersMarkt
         {
             base.OnNavigatedTo(e);
 
-            CurrentUser = e.Parameter as User;
+            var user = e.Parameter as User;
 
-            if (CurrentUser == null)
-                throw new Exception("ProfilePage requires a User object.");
+            using var db = new AppDbContext();
+
+            CurrentUser = db.Users.Include(u => u.Notifications).FirstOrDefault(u => u.Id == user.Id);
 
             DataContext = CurrentUser;
         }
@@ -115,5 +118,33 @@ namespace MakersMarkt
                 ProfileTitle.Text = CurrentUser.DisplayName;
             }
         }
+        private async void OpenNotifications_Click(object sender, RoutedEventArgs e)
+        {
+            await NotificationsDialog.ShowAsync();
+        }
+        private async void Notification_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            var notification = (sender as FrameworkElement).DataContext as Notification;
+
+            if (notification != null && !notification.IsRead)
+            {
+                using var db = new AppDbContext();
+                notification.IsRead = true;
+                await db.SaveChangesAsync();
+            }
+        }
+    }
+    public class BoolToColorConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            bool isRead = (bool)value;
+            return isRead
+                ? new SolidColorBrush(Colors.Transparent)
+                : new SolidColorBrush(Colors.CornflowerBlue);
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+            => throw new NotImplementedException();
     }
 }
