@@ -10,5 +10,8 @@
 
         public Product Product { get; set; }
         public User Buyer { get; set; }
+
+        // Computed — not mapped to DB
+        public string RatingDisplay => new string('★', Rating) + new string('☆', 5 - Rating);
     }
 }
