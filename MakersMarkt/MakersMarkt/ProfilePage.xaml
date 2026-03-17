@@ -10,6 +10,8 @@
 
     <Page.Resources>
         <local:BoolToColorConverter x:Key="BoolToColorConverter"/>
+        <local:DateTimeToPrettyStringConverter x:Key="PrettyDateConverter"/>
+        <local:BoolToFontWeightConverter x:Key="FontWeightConverter"/>
     </Page.Resources>
 
     <Grid Background="#FFF9F7F6" Padding="40">
@@ -99,7 +101,7 @@
 
                         <StackPanel Orientation="Horizontal" Spacing="10">
                             <TextBlock Text="Display Name:"
-                                   Width="120"
+                                   Width="100"
                                    Foreground="#5C504D"/>
                             <TextBox Text="{Binding DisplayName, Mode=TwoWay}"
                                  TextChanged="DisplayName_TextChanged"
@@ -109,7 +111,7 @@
 
                         <StackPanel Orientation="Horizontal" Spacing="10">
                             <TextBlock Text="Biography:"
-                                   Width="120"
+                                   Width="100"
                                    Foreground="#5C504D"/>
                             <TextBox Text="{Binding Biography, Mode=TwoWay}"
                                  Style="{StaticResource PastelComboBox}"
@@ -148,15 +150,20 @@
                                Foreground="#7A6F6B"/>
                         </StackPanel>
 
-                        <StackPanel Grid.Column="2" HorizontalAlignment="Center">
+                        <StackPanel Grid.Column="2"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+
                             <Button Content="{Binding Notifications.Count}"
                                 Click="OpenNotifications_Click"
-                                Style="{StaticResource NotificationBadgeStyle}"/>
+                                Style="{StaticResource NotificationBadgeStyle}"
+                                HorizontalAlignment="Center"
+                                    Margin="0,11,0,0"/>
 
                             <TextBlock Text="Notifications"
-                               FontSize="14"
-                               Foreground="#7A6F6B"
-                               VerticalAlignment="Center"/>
+                                   FontSize="14"
+                                   Foreground="#7A6F6B"
+                                   HorizontalAlignment="Center"/>
                         </StackPanel>
                     </Grid>
 
@@ -171,24 +178,39 @@
             
         </ScrollViewer>
         <ContentDialog x:Name="NotificationsDialog"
-               Title="Meldingen"
-               PrimaryButtonText="Sluiten"
+               Title="Notifications"
+               PrimaryButtonText="Close"
+               SecondaryButtonText="Mark all as read"
                DefaultButton="Primary"
                Background="White"
-               CornerRadius="12">
+               CornerRadius="20"
+               SecondaryButtonClick="MarkAllAsRead_Click">
 
             <ListView ItemsSource="{Binding Notifications}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Horizontal" Spacing="10" Tapped="Notification_Tapped">
+                        <StackPanel Padding="6" Spacing="8">
 
-                            <Ellipse Width="10" Height="10"
-                             Fill="{Binding IsRead, Converter={StaticResource BoolToColorConverter}}"/>
+                            <StackPanel Orientation="Horizontal" Spacing="12" Tapped="Notification_Tapped">
 
-                            <StackPanel>
-                                <TextBlock Text="{Binding Message}" FontSize="16"/>
-                                <TextBlock Text="{Binding CreatedAt}" FontSize="12" Foreground="Gray"/>
+                                <Ellipse Width="10" Height="10"
+                                 VerticalAlignment="Center"
+                                 Fill="{Binding IsRead, Converter={StaticResource BoolToColorConverter}}"/>
+
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Type}"
+                                       FontSize="16"
+                                       Foreground="#42352C"
+                                       FontWeight="{Binding IsRead, Converter={StaticResource FontWeightConverter}}"/>
+
+                                    <TextBlock Text="{Binding CreatedAt, Converter={StaticResource PrettyDateConverter}}"
+                                       FontSize="12"
+                                       Foreground="#A08F89"/>
+                                </StackPanel>
+
                             </StackPanel>
+
+                            <Rectangle Height="1" Fill="#E8DCD6" Margin="0,4,0,0"/>
 
                         </StackPanel>
                     </DataTemplate>

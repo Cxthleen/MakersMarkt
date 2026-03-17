@@ -2,6 +2,7 @@ using MakersMarkt.Data.Context;
 using MakersMarkt.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.UI;
+using Microsoft.UI.Text;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -130,8 +131,28 @@ namespace MakersMarkt
             {
                 using var db = new AppDbContext();
                 notification.IsRead = true;
+                db.Notifications.Update(notification);
                 await db.SaveChangesAsync();
+
+                DataContext = null;
+                DataContext = CurrentUser;
             }
+        }
+
+        private async void MarkAllAsRead_Click(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            using var db = new AppDbContext();
+
+            foreach (var n in CurrentUser.Notifications)
+            {
+                n.IsRead = true;
+                db.Notifications.Update(n);
+            }
+
+            await db.SaveChangesAsync();
+
+            DataContext = null;
+            DataContext = CurrentUser;
         }
     }
     public class BoolToColorConverter : IValueConverter
@@ -142,6 +163,49 @@ namespace MakersMarkt
             return isRead
                 ? new SolidColorBrush(Colors.Transparent)
                 : new SolidColorBrush(Colors.CornflowerBlue);
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+            => throw new NotImplementedException();
+    }
+    public class DateTimeToPrettyStringConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            if (value is DateTime dt)
+            {
+                var now = DateTime.Now;
+                var diff = now - dt;
+
+                if (diff.TotalSeconds < 60)
+                    return "Just now";
+
+                if (diff.TotalMinutes < 60)
+                    return $"{(int)diff.TotalMinutes} minutes ago";
+
+                if (diff.TotalHours < 24)
+                    return $"{(int)diff.TotalHours} hours ago";
+
+                if (diff.TotalDays < 2)
+                    return "Yesterday";
+
+                if (diff.TotalDays < 7)
+                    return $"{(int)diff.TotalDays} days ago";
+
+                return dt.ToString("MMM dd HH:mm");
+            }
+
+            return "";
+        }
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+            => throw new NotImplementedException();
+    }
+    public class BoolToFontWeightConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            bool isRead = (bool)value;
+            return isRead ? FontWeights.Normal : FontWeights.Bold;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

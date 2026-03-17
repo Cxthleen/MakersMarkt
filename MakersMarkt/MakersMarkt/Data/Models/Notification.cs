@@ -7,8 +7,7 @@ namespace MakersMarkt.Data.Models
         public int Id { get; set; }
         public string Type { get; set; }
         public bool IsRead { get; set; }
-        public string Message { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
         public int UserId { get; set; }
         public User User { get; set; }
     }
