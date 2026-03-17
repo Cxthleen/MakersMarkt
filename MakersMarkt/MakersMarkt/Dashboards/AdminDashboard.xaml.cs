@@ -40,13 +40,6 @@ namespace MakersMarkt.Dashboards
             await LoadDataAsync();
         }
 
-        private static string GetDeepMessage(Exception ex)
-        {
-            while (ex.InnerException != null)
-                ex = ex.InnerException;
-            return ex.Message;
-        }
-
         private async Task LoadDataAsync()
         {
             LoadingOverlay.Visibility = Visibility.Visible;
@@ -94,6 +87,11 @@ namespace MakersMarkt.Dashboards
         private void ModerationButton_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(ModerationPage), _currentUser);
+        }
+
+        private void AddCreditButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(AddCreditPage), _currentUser);
         }
     }
 }

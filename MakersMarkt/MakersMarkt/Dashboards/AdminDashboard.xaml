@@ -78,6 +78,7 @@
 
             <StackPanel Grid.Column="0" Spacing="16">
 
+                <!-- MODERATION BUTTON -->
                 <Button x:Name="ModerationButton"
                         Click="ModerationButton_Click"
                         HorizontalAlignment="Stretch"
@@ -113,6 +114,43 @@
                     </Border>
                 </Button>
 
+                <!-- ADD CREDIT BUTTON -->
+                <Button x:Name="AddCreditButton"
+                        Click="AddCreditButton_Click"
+                        HorizontalAlignment="Stretch"
+                        Background="#34C759"
+                        CornerRadius="14"
+                        BorderThickness="0"
+                        Padding="0">
+                    <Border Padding="24,28" HorizontalAlignment="Stretch">
+                        <StackPanel Spacing="14">
+                            <Border Background="#FFFFFF" CornerRadius="12"
+                                    Width="52" Height="52"
+                                    HorizontalAlignment="Left">
+                                <FontIcon Glyph="&#xE8C7;" FontSize="24" Foreground="#34C759"
+                                          HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <StackPanel Spacing="4">
+                                <TextBlock Text="Winkelkrediet Toevoegen"
+                                           FontSize="17" FontWeight="Bold"
+                                           Foreground="White"
+                                           FontFamily="Segoe UI Variable Display"
+                                           TextWrapping="Wrap"/>
+                                <TextBlock Text="Voeg krediet toe aan een koper"
+                                           FontSize="12" Foreground="#FFFFFFAA"
+                                           TextWrapping="Wrap"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <TextBlock Text="Ga naar kredietbeheer"
+                                           FontSize="13" FontWeight="SemiBold"
+                                           Foreground="White"/>
+                                <FontIcon Glyph="&#xE76C;" FontSize="12" Foreground="White"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </Button>
+
+                <!-- PLATFORM INFO CARD -->
                 <Border Style="{StaticResource CardStyle}">
                     <StackPanel Spacing="16">
                         <TextBlock Text="PLATFORMINFO" Style="{StaticResource SectionHeaderStyle}"/>
@@ -129,9 +167,7 @@
                                     <TextBlock Text="Totaal producten"
                                                FontSize="13" Foreground="#3C3C43" VerticalAlignment="Center"/>
                                 </StackPanel>
-                                <TextBlock Grid.Column="1"
-                                           x:Name="TotalProductsText"
-                                           Text="—"
+                                <TextBlock Grid.Column="1" x:Name="TotalProductsText" Text="—"
                                            FontSize="14" FontWeight="SemiBold" Foreground="#1C1C1E"
                                            VerticalAlignment="Center"/>
                             </Grid>
@@ -148,9 +184,7 @@
                                     <TextBlock Text="Open meldingen"
                                                FontSize="13" Foreground="#3C3C43" VerticalAlignment="Center"/>
                                 </StackPanel>
-                                <TextBlock Grid.Column="1"
-                                           x:Name="OpenReportsText"
-                                           Text="—"
+                                <TextBlock Grid.Column="1" x:Name="OpenReportsText" Text="—"
                                            FontSize="14" FontWeight="SemiBold" Foreground="#1C1C1E"
                                            VerticalAlignment="Center"/>
                             </Grid>
@@ -167,9 +201,7 @@
                                     <TextBlock Text="Gebruikers"
                                                FontSize="13" Foreground="#3C3C43" VerticalAlignment="Center"/>
                                 </StackPanel>
-                                <TextBlock Grid.Column="1"
-                                           x:Name="TotalUsersText"
-                                           Text="—"
+                                <TextBlock Grid.Column="1" x:Name="TotalUsersText" Text="—"
                                            FontSize="14" FontWeight="SemiBold" Foreground="#1C1C1E"
                                            VerticalAlignment="Center"/>
                             </Grid>
@@ -186,9 +218,7 @@
                                     <TextBlock Text="Moderatieacties"
                                                FontSize="13" Foreground="#3C3C43" VerticalAlignment="Center"/>
                                 </StackPanel>
-                                <TextBlock Grid.Column="1"
-                                           x:Name="TotalModActionsText"
-                                           Text="—"
+                                <TextBlock Grid.Column="1" x:Name="TotalModActionsText" Text="—"
                                            FontSize="14" FontWeight="SemiBold" Foreground="#1C1C1E"
                                            VerticalAlignment="Center"/>
                             </Grid>
@@ -197,6 +227,7 @@
                 </Border>
             </StackPanel>
 
+            <!-- MODERATION LOG -->
             <Border Grid.Column="1" Style="{StaticResource CardStyle}" Padding="0">
                 <Grid>
                     <Grid.RowDefinitions>
