@@ -1,4 +1,6 @@
-﻿namespace MakersMarkt.Data.Models
+﻿using System;
+
+namespace MakersMarkt.Data.Models
 {
     public class Review
     {
@@ -11,7 +13,8 @@
         public Product Product { get; set; }
         public User Buyer { get; set; }
 
-        // Computed — not mapped to DB
-        public string RatingDisplay => new string('★', Rating) + new string('☆', 5 - Rating);
+        public string RatingDisplay =>
+        new string('★', Math.Clamp(Rating, 0, 5)) +
+        new string('☆', 5 - Math.Clamp(Rating, 0, 5));
     }
 }

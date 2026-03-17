@@ -154,6 +154,15 @@ namespace MakersMarkt
             DataContext = null;
             DataContext = CurrentUser;
         }
+        private void OpenOrders_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(OrdersPage), CurrentUser);
+        }
+
+        private void OpenReviews_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(ReviewsPage), CurrentUser);
+        }
     }
     public class BoolToColorConverter : IValueConverter
     {

@@ -8,10 +8,10 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="#1a1a1a">
+    Background="#F5F0EE">
 
     <Grid Padding="40">
-        <Border Background="#1a1a1a" CornerRadius="4" Padding="24">
+        <Border Background="#F5F0EE" CornerRadius="4" Padding="24">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -28,13 +28,16 @@
 
                     <StackPanel Grid.Column="0">
                         <TextBlock x:Name="WelcomeText"
-                                   FontSize="14"
-                                   Foreground="#aaaaaa"
+                                   FontSize="13"
+                                   Foreground="#B0A09C"
                                    Margin="0,0,0,2"/>
                         <TextBlock Text="All Products"
-                                   FontSize="28"
-                                   FontWeight="Bold"
-                                   Foreground="White"/>
+                                   FontSize="34"
+                                   FontFamily="{StaticResource CuteFont}"
+                                   Foreground="#3D3330"/>
+                        <Rectangle Height="3" Width="52" Fill="#E8A598"
+                                   HorizontalAlignment="Left" RadiusX="2" RadiusY="2"
+                                   Margin="0,6,0,0"/>
                     </StackPanel>
                 </Grid>
 
@@ -47,21 +50,23 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <StackPanel Grid.Column="0" Margin="0,0,12,0">
-                        <TextBlock Text="Category" FontSize="12" Foreground="#888888" Margin="0,0,0,4"/>
+                    <StackPanel Grid.Column="0" Margin="0,0,12,0" Spacing="4">
+                        <TextBlock Text="Category"
+                                   FontSize="11"
+                                   Foreground="#B0A09C"
+                                   FontWeight="SemiBold"/>
                         <ComboBox x:Name="CategoryFilter"
                                   Width="160"
-                                  Background="#2a2a2a"
-                                  Foreground="White"
                                   SelectionChanged="Filter_Changed"/>
                     </StackPanel>
 
-                    <StackPanel Grid.Column="1" Margin="0,0,12,0">
-                        <TextBlock Text="Complexity" FontSize="12" Foreground="#888888" Margin="0,0,0,4"/>
+                    <StackPanel Grid.Column="1" Margin="0,0,12,0" Spacing="4">
+                        <TextBlock Text="Complexity"
+                                   FontSize="11"
+                                   Foreground="#B0A09C"
+                                   FontWeight="SemiBold"/>
                         <ComboBox x:Name="ComplexityFilter"
                                   Width="160"
-                                  Background="#2a2a2a"
-                                  Foreground="White"
                                   SelectionChanged="Filter_Changed">
                             <ComboBoxItem Content="All" IsSelected="True"/>
                             <ComboBoxItem Content="Low"/>
@@ -70,12 +75,13 @@
                         </ComboBox>
                     </StackPanel>
 
-                    <StackPanel Grid.Column="2" Margin="0,0,12,0">
-                        <TextBlock Text="Sort by" FontSize="12" Foreground="#888888" Margin="0,0,0,4"/>
+                    <StackPanel Grid.Column="2" Margin="0,0,12,0" Spacing="4">
+                        <TextBlock Text="Sort by"
+                                   FontSize="11"
+                                   Foreground="#B0A09C"
+                                   FontWeight="SemiBold"/>
                         <ComboBox x:Name="SortBy"
                                   Width="180"
-                                  Background="#2a2a2a"
-                                  Foreground="White"
                                   SelectionChanged="Filter_Changed">
                             <ComboBoxItem Content="Name (A → Z)" IsSelected="True"/>
                             <ComboBoxItem Content="Name (Z → A)"/>
@@ -88,52 +94,77 @@
                 <!-- PRODUCT LIST -->
                 <Border Grid.Row="2"
                         Margin="0,16,0,0"
-                        Background="#2a2a2a"
+                        Background="White"
                         Padding="12"
-                        CornerRadius="2">
+                        CornerRadius="16"
+                        BorderBrush="#EDE0DB"
+                        BorderThickness="1.5">
                     <ListView x:Name="ProductsListView"
                               SelectionMode="None">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="Padding" Value="0"/>
+                                <Setter Property="Margin" Value="0"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="ListViewItem">
+                                            <ContentPresenter/>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListView.ItemContainerStyle>
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="models:Product">
-                                <Grid Margin="8">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="120"/>
-                                    </Grid.ColumnDefinitions>
+                                <Border Background="#FFF7F4"
+                                        CornerRadius="12"
+                                        Padding="16"
+                                        Margin="0,0,0,8"
+                                        BorderBrush="#EDE0DB"
+                                        BorderThickness="1">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="120"/>
+                                        </Grid.ColumnDefinitions>
 
-                                    <StackPanel Grid.Column="0">
-                                        <TextBlock Text="{x:Bind Name}"
-                                                   FontWeight="SemiBold"
-                                                   FontSize="15"
-                                                   Foreground="White"/>
-                                        <TextBlock Text="{x:Bind Description}"
-                                                   Foreground="#aaaaaa"
-                                                   TextTrimming="CharacterEllipsis"
-                                                   MaxLines="1"/>
-                                        <StackPanel Orientation="Horizontal" Spacing="12">
-                                            <TextBlock Text="{x:Bind Category.Name}"
-                                                       Foreground="#888888"
-                                                       FontSize="12"/>
-                                            <TextBlock Text="{x:Bind Complexity}"
-                                                       Foreground="#888888"
-                                                       FontSize="12"/>
-                                            <TextBlock Text="{x:Bind Durability}"
-                                                       Foreground="#888888"
-                                                       FontSize="12"/>
-                                            <TextBlock Text="{x:Bind Seller.DisplayName}"
-                                                       Foreground="#4d8ffa"
-                                                       FontSize="12"/>
+                                        <StackPanel Grid.Column="0" Spacing="4">
+                                            <TextBlock Text="{x:Bind Name}"
+                                                       FontFamily="{StaticResource CuteFont}"
+                                                       FontWeight="SemiBold"
+                                                       FontSize="16"
+                                                       Foreground="#3D3330"/>
+                                            <TextBlock Text="{x:Bind Description}"
+                                                       Foreground="#8A7C78"
+                                                       FontSize="13"
+                                                       TextTrimming="CharacterEllipsis"
+                                                       MaxLines="1"/>
+                                            <StackPanel Orientation="Horizontal" Spacing="12">
+                                                <TextBlock Text="{x:Bind Category.Name}"
+                                                           Foreground="#B0A09C"
+                                                           FontSize="12"/>
+                                                <TextBlock Text="{x:Bind Complexity}"
+                                                           Foreground="#B0A09C"
+                                                           FontSize="12"/>
+                                                <TextBlock Text="{x:Bind Durability}"
+                                                           Foreground="#B0A09C"
+                                                           FontSize="12"/>
+                                                <TextBlock Text="{x:Bind Seller.DisplayName}"
+                                                           Foreground="#C0604E"
+                                                           FontSize="12"/>
+                                            </StackPanel>
                                         </StackPanel>
-                                    </StackPanel>
 
-                                    <Button Grid.Column="1"
-                                            Content="View"
-                                            Background="#0c5adb"
-                                            Foreground="White"
-                                            VerticalAlignment="Center"
-                                            HorizontalAlignment="Right"
-                                            Click="View_Click"/>
-                                </Grid>
+                                        <Button Grid.Column="1"
+                                                Content="View"
+                                                Style="{StaticResource PastelButtonStyle}"
+                                                VerticalAlignment="Center"
+                                                HorizontalAlignment="Right"
+                                                Click="View_Click"/>
+                                    </Grid>
+                                </Border>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
