@@ -11,6 +11,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace MakersMarkt.Dashboards
@@ -123,6 +124,50 @@ namespace MakersMarkt.Dashboards
         public string RatingDisplay { get; set; }
     }
 
+    public class AutoFlaggedItemViewModel
+    {
+        public int ProductId { get; set; }
+        public string ProductName { get; set; }
+        public string Source { get; set; }
+        public string RuleName { get; set; }
+        public string MatchedValue { get; set; }
+        public string Snippet { get; set; }
+        public string ContextInfo { get; set; }
+        public string UniqueKey { get; set; }
+        public string SourceColor => Source switch
+        {
+            "Product" => "#007AFF",
+            "Beschrijving" => "#34C759",
+            "Recensie" => "#FF9500",
+            "Notitie" => "#8E8E93",
+            _ => "#C7C7CC"
+        };
+    }
+
+    public abstract class ModerationRule
+    {
+        public abstract string RuleName { get; }
+        public abstract string Description { get; }
+        public abstract bool Evaluate(string text, out string matchedValue);
+    }
+
+    public class ExternalLinkRule : ModerationRule
+    {
+        private static readonly Regex _pattern = new(
+            @"(https?://|www\.)\S+",
+            RegexOptions.IgnoreCase | RegexOptions.Compiled);
+
+        public override string RuleName => "Externe link";
+        public override string Description => "Tekst bevat een externe URL of hyperlink";
+
+        public override bool Evaluate(string text, out string matchedValue)
+        {
+            var match = _pattern.Match(text ?? string.Empty);
+            matchedValue = match.Success ? match.Value : string.Empty;
+            return match.Success;
+        }
+    }
+
     public sealed partial class ModerationPage : Page
     {
         private User _currentUser;
@@ -140,13 +185,25 @@ namespace MakersMarkt.Dashboards
         private ObservableCollection<ModerationLogViewModel> _allLogs = new();
         private ObservableCollection<FlagViewModel> _flags = new();
         private ObservableCollection<ReviewSnippetViewModel> _productDetailReviews = new();
+        private ObservableCollection<AutoFlaggedItemViewModel> _allAutoFlaggedItems = new();
+        private ObservableCollection<AutoFlaggedItemViewModel> _filteredAutoFlaggedItems = new();
         private List<Category> _categories = new();
+        private List<ModerationRule> _moderationRules;
+        private HashSet<string> _dismissedAutoFlags = new();
 
         private int _pendingProductId;
         private string _pendingAction;
         private string _productStatusFilter = "all";
         private string _searchScope = "Alles";
         private string _reportStatusFilter = "all";
+        private string _autoFlagFilter = "all";
+
+        private TextBlock _autoFlagCountLabel;
+        private TextBlock _autoFlagCount;
+        private Border _autoFlagBadge;
+        private TextBlock _activeRulesLabel;
+        private StackPanel _autoFlagEmptyState;
+        private ListView _autoFlagListView;
 
         public ModerationPage()
         {
@@ -161,6 +218,26 @@ namespace MakersMarkt.Dashboards
             RecentActionsListView.ItemsSource = _recentActions;
             FlagButtonsControl.ItemsSource = _flags;
             ProductDetailReviewsList.ItemsSource = _productDetailReviews;
+
+            _moderationRules = new List<ModerationRule>
+            {
+                new ExternalLinkRule(),
+            };
+
+            Loaded += ModerationPage_Loaded;
+        }
+
+        private void ModerationPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            _autoFlagCountLabel = FindName("AutoFlagCountLabel") as TextBlock;
+            _autoFlagCount = FindName("AutoFlagCount") as TextBlock;
+            _autoFlagBadge = FindName("AutoFlagBadge") as Border;
+            _activeRulesLabel = FindName("ActiveRulesLabel") as TextBlock;
+            _autoFlagEmptyState = FindName("AutoFlagEmptyState") as StackPanel;
+            _autoFlagListView = FindName("AutoFlagListView") as ListView;
+
+            if (_autoFlagListView != null)
+                _autoFlagListView.ItemsSource = _filteredAutoFlaggedItems;
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
@@ -195,6 +272,7 @@ namespace MakersMarkt.Dashboards
                 await LoadStatsAsync();
                 await LoadFlagsAsync();
                 await LoadRecentActionsAsync();
+                await ScanForAutoFlaggedItemsAsync();
                 UpdateBadges();
             }
             catch (Exception ex)
@@ -397,6 +475,204 @@ namespace MakersMarkt.Dashboards
             ModeratorName = m.User?.DisplayName ?? m.User?.Username ?? "Onbekend"
         };
 
+        private async Task ScanForAutoFlaggedItemsAsync()
+        {
+            _allAutoFlaggedItems.Clear();
+            bool newReports = false;
+
+            var allFlags = await _db.Flags.Where(f => f.IsActive).ToListAsync();
+
+            var products = await _db.Products.Include(p => p.Category).ToListAsync();
+            foreach (var p in products)
+            {
+                foreach (var rule in _moderationRules)
+                {
+                    if (rule.Evaluate(p.Name, out string nameMatch))
+                    {
+                        string key = $"{p.Id}_Product_{rule.RuleName}";
+                        if (!_dismissedAutoFlags.Contains(key))
+                            _allAutoFlaggedItems.Add(BuildAutoFlagVm(
+                                p.Id, p.Name, "Product", rule, nameMatch,
+                                p.Name, $"Categorie: {p.Category?.Name ?? "—"} · ID: {p.Id}", key));
+                        if (await TryCreateAutoReportAsync(p.Id, rule, "productnaam", nameMatch, allFlags))
+                            newReports = true;
+                    }
+
+                    if (rule.Evaluate(p.Description, out string descMatch))
+                    {
+                        string key = $"{p.Id}_Beschrijving_{rule.RuleName}";
+                        if (!_dismissedAutoFlags.Contains(key))
+                            _allAutoFlaggedItems.Add(BuildAutoFlagVm(
+                                p.Id, p.Name, "Beschrijving", rule, descMatch,
+                                p.Description, $"Categorie: {p.Category?.Name ?? "—"} · ID: {p.Id}", key));
+                        if (await TryCreateAutoReportAsync(p.Id, rule, "beschrijving", descMatch, allFlags))
+                            newReports = true;
+                    }
+                }
+            }
+
+            var reviews = await _db.Reviews
+                .Include(r => r.Product)
+                .Include(r => r.Buyer)
+                .Where(r => r.ReviewText != null)
+                .ToListAsync();
+
+            foreach (var r in reviews)
+            {
+                foreach (var rule in _moderationRules)
+                {
+                    if (rule.Evaluate(r.ReviewText, out string reviewMatch))
+                    {
+                        string key = $"{r.ProductId}_Recensie_{r.Id}_{rule.RuleName}";
+                        string ctx = $"Door: {r.Buyer?.DisplayName ?? "—"} · Beoordeling: {r.Rating}/5";
+                        if (!_dismissedAutoFlags.Contains(key))
+                            _allAutoFlaggedItems.Add(BuildAutoFlagVm(
+                                r.ProductId, r.Product?.Name ?? $"Product #{r.ProductId}",
+                                "Recensie", rule, reviewMatch, r.ReviewText, ctx, key));
+                        string src = $"recensie (door {r.Buyer?.DisplayName ?? "—"})";
+                        if (await TryCreateAutoReportAsync(r.ProductId, rule, src, reviewMatch, allFlags))
+                            newReports = true;
+                    }
+                }
+            }
+
+            var moderations = await _db.Moderations
+                .Include(m => m.Product)
+                .Where(m => m.Note != null && m.ProductId > 0)
+                .ToListAsync();
+
+            foreach (var m in moderations)
+            {
+                foreach (var rule in _moderationRules)
+                {
+                    if (rule.Evaluate(m.Note, out string noteMatch))
+                    {
+                        string key = $"{m.ProductId}_Notitie_{m.Id}_{rule.RuleName}";
+                        string ctx = $"Actie: {m.ActionType ?? "—"} · Moderator ID: {m.UserId}";
+                        if (!_dismissedAutoFlags.Contains(key))
+                            _allAutoFlaggedItems.Add(BuildAutoFlagVm(
+                                m.ProductId,
+                                m.Product?.Name ?? $"Product #{m.ProductId}",
+                                "Notitie", rule, noteMatch, m.Note, ctx, key));
+                        string src = $"moderatienotitie ({m.ActionType ?? "actie"})";
+                        if (await TryCreateAutoReportAsync(m.ProductId, rule, src, noteMatch, allFlags))
+                            newReports = true;
+                    }
+                }
+            }
+
+            if (newReports)
+                await LoadReportsAsync();
+
+            if (_activeRulesLabel != null)
+                _activeRulesLabel.Text = string.Join(" · ", _moderationRules.Select(r => r.Description));
+
+            ApplyAutoFlagFilters();
+            UpdateAutoFlagBadge();
+            UpdateBadges();
+        }
+
+        private static AutoFlaggedItemViewModel BuildAutoFlagVm(
+            int productId, string productName, string source,
+            ModerationRule rule, string matched, string fullText,
+            string contextInfo, string key) => new()
+            {
+                ProductId = productId,
+                ProductName = productName,
+                Source = source,
+                RuleName = rule.RuleName,
+                MatchedValue = matched,
+                Snippet = TruncateAroundKeyword(fullText, matched, 120),
+                ContextInfo = contextInfo,
+                UniqueKey = key
+            };
+
+        private async Task<bool> TryCreateAutoReportAsync(
+            int productId, ModerationRule rule,
+            string source, string matchedValue,
+            List<Flag> availableFlags)
+        {
+            if (availableFlags.Count == 0)
+                return false;
+
+            var flag = availableFlags.FirstOrDefault(f =>
+                           f.Name.Equals(rule.RuleName, StringComparison.OrdinalIgnoreCase))
+                       ?? availableFlags[0];
+
+            string reason = $"[Auto] {rule.RuleName} in {source}: \"{matchedValue}\"";
+
+            bool exists = await _db.Reports.AnyAsync(r =>
+                r.ProductId == productId &&
+                r.Reason == reason &&
+                r.Status == "open");
+
+            if (exists)
+                return false;
+
+            _db.Reports.Add(new Report
+            {
+                ProductId = productId,
+                UserId = _currentUser?.Id ?? 0,
+                FlagId = flag.Id,
+                Reason = reason,
+                Status = "open"
+            });
+
+            await _db.SaveChangesAsync();
+            return true;
+        }
+
+        private void ApplyAutoFlagFilters()
+        {
+            var filtered = _autoFlagFilter switch
+            {
+                "products" => _allAutoFlaggedItems.Where(x => x.Source == "Product" || x.Source == "Beschrijving"),
+                "reviews" => _allAutoFlaggedItems.Where(x => x.Source == "Recensie"),
+                _ => _allAutoFlaggedItems.AsEnumerable()
+            };
+            _filteredAutoFlaggedItems.Clear();
+            foreach (var item in filtered)
+                _filteredAutoFlaggedItems.Add(item);
+
+            if (_autoFlagCountLabel != null)
+                _autoFlagCountLabel.Text = $"{_filteredAutoFlaggedItems.Count} items";
+            if (_autoFlagEmptyState != null)
+                _autoFlagEmptyState.Visibility = _filteredAutoFlaggedItems.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
+            if (_autoFlagListView != null)
+                _autoFlagListView.Visibility = _filteredAutoFlaggedItems.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        private void UpdateAutoFlagBadge()
+        {
+            int count = _allAutoFlaggedItems.Count;
+            if (_autoFlagBadge != null)
+                _autoFlagBadge.Visibility = count > 0 ? Visibility.Visible : Visibility.Collapsed;
+            if (_autoFlagCount != null)
+                _autoFlagCount.Text = $"{count} auto";
+        }
+
+        private void AutoFlagFilter_Checked(object sender, RoutedEventArgs e)
+        {
+            if ((sender as RadioButton)?.Tag is string tag)
+            {
+                _autoFlagFilter = tag;
+                ApplyAutoFlagFilters();
+            }
+        }
+
+        private void DismissAutoFlag_Click(object sender, RoutedEventArgs e)
+        {
+            if ((sender as Button)?.Tag is string key)
+            {
+                _dismissedAutoFlags.Add(key);
+                var item = _allAutoFlaggedItems.FirstOrDefault(x => x.UniqueKey == key);
+                if (item != null) _allAutoFlaggedItems.Remove(item);
+                ApplyAutoFlagFilters();
+                UpdateAutoFlagBadge();
+                ShowStatus("Item genegeerd en verwijderd uit wachtrij.");
+            }
+        }
+
         private async void LogsFlyout_Opening(object sender, object e)
         {
             await LoadAllLogsForFlyoutAsync();
@@ -550,6 +826,8 @@ namespace MakersMarkt.Dashboards
                 }
                 if (action != "delete")
                     await CreateNotificationForProductOwnerAsync(productId, action);
+
+                await ScanForAutoFlaggedItemsAsync();
             }
             catch (Exception ex)
             {
@@ -669,6 +947,7 @@ namespace MakersMarkt.Dashboards
                     );
                     await LoadProductsAsync();
                     await LoadStatsAsync();
+                    await ScanForAutoFlaggedItemsAsync();
                     ShowStatus("Categorie succesvol bijgewerkt.");
                 }
             }

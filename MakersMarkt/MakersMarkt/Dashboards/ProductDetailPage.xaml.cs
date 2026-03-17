@@ -133,7 +133,7 @@ namespace MakersMarkt.Dashboards
                 {
                     Type = "new_order",
                     IsRead = false,
-                    UserId = _product.SellerUserId
+                    UserId = _product.SellerUserId ?? 0
                 };
                 _db.Notifications.Add(notification);
 

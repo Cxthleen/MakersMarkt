@@ -164,6 +164,12 @@
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="12" VerticalAlignment="Center">
+                    <Border x:Name="AutoFlagBadge" Background="#FF9500" CornerRadius="10" Padding="10,4" Visibility="Collapsed">
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <TextBlock Text="&#xE814;" FontSize="10" Foreground="White" VerticalAlignment="Center" FontFamily="Segoe MDL2 Assets"/>
+                            <TextBlock x:Name="AutoFlagCount" FontSize="12" FontWeight="SemiBold" Foreground="White"/>
+                        </StackPanel>
+                    </Border>
                     <Border x:Name="PendingReportsBadge" Background="#FF3B30" CornerRadius="10" Padding="10,4" Visibility="Collapsed">
                         <StackPanel Orientation="Horizontal" Spacing="4">
                             <TextBlock Text="●" FontSize="10" Foreground="White" VerticalAlignment="Center"/>
@@ -686,6 +692,96 @@
                                                     <Button Content="Categorie toewijzen" Style="{StaticResource SecondaryButtonStyle}" Tag="{x:Bind ProductId}" Click="AssignCategoryFromReport_Click" Padding="12,7" FontSize="12"/>
                                                     <Button Content="Product verwijderen" Style="{StaticResource DestructiveButtonStyle}" Tag="{x:Bind ProductId}" Click="DeleteFromReport_Click" Padding="12,7" FontSize="12"/>
                                                     <Button Content="Melding sluiten" Style="{StaticResource SecondaryButtonStyle}" Tag="{x:Bind Id}" Click="CloseReport_Click" Padding="12,7" FontSize="12"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </TabViewItem>
+            <TabViewItem Header="Auto-markering" IsClosable="False">
+                <TabViewItem.IconSource>
+                    <FontIconSource Glyph="&#xE814;"/>
+                </TabViewItem.IconSource>
+                <Grid Padding="28,20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="12"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="16"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Background="#FFFFFF" CornerRadius="12" Padding="16" BorderBrush="#E5E5EA" BorderThickness="1">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                                <RadioButton Content="Alles" GroupName="AutoFlagGroup" Style="{StaticResource ChipRadioStyle}" Tag="all" IsChecked="True" Checked="AutoFlagFilter_Checked"/>
+                                <RadioButton Content="Producten" GroupName="AutoFlagGroup" Style="{StaticResource ChipRadioStyle}" Tag="products" Checked="AutoFlagFilter_Checked"/>
+                                <RadioButton Content="Recensies" GroupName="AutoFlagGroup" Style="{StaticResource ChipRadioStyle}" Tag="reviews" Checked="AutoFlagFilter_Checked"/>
+                            </StackPanel>
+                            <TextBlock Grid.Column="1" x:Name="AutoFlagCountLabel" FontSize="13" Foreground="#8E8E93" VerticalAlignment="Center"/>
+                        </Grid>
+                    </Border>
+                    <Border Grid.Row="2" Background="#FFF8E8" CornerRadius="10" Padding="14,10" BorderBrush="#FFE0A0" BorderThickness="1">
+                        <StackPanel Orientation="Horizontal" Spacing="10">
+                            <FontIcon Glyph="&#xE946;" FontSize="14" Foreground="#FF9500" VerticalAlignment="Center"/>
+                            <StackPanel Spacing="2">
+                                <TextBlock Text="Actieve moderatieregels" FontSize="13" FontWeight="SemiBold" Foreground="#1C1C1E"/>
+                                <TextBlock x:Name="ActiveRulesLabel" FontSize="12" Foreground="#8E8E93"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                    <Border Grid.Row="4" Background="#FFFFFF" CornerRadius="12" BorderBrush="#E5E5EA" BorderThickness="1">
+                        <Grid>
+                            <StackPanel x:Name="AutoFlagEmptyState" VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="12">
+                                <FontIcon Glyph="&#xE930;" FontSize="48" Foreground="#C7C7CC" HorizontalAlignment="Center"/>
+                                <TextBlock Text="Geen automatisch gemarkeerde items" FontSize="16" FontWeight="SemiBold" Foreground="#8E8E93" HorizontalAlignment="Center"/>
+                                <TextBlock Text="Alle inhoud voldoet aan de moderatieregels" FontSize="13" Foreground="#C7C7CC" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                            <ListView x:Name="AutoFlagListView" Padding="8" SelectionMode="None">
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="ListViewItem">
+                                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                        <Setter Property="Padding" Value="12,0"/>
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+                                <ListView.ItemTemplate>
+                                    <DataTemplate x:DataType="local:AutoFlaggedItemViewModel">
+                                        <Border Padding="0,16" BorderBrush="#F2F2F7" BorderThickness="0,0,0,1">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                <StackPanel Grid.Column="0" Spacing="6">
+                                                    <StackPanel Orientation="Horizontal" Spacing="8">
+                                                        <Border Background="{x:Bind SourceColor}" CornerRadius="6" Padding="8,3">
+                                                            <TextBlock Text="{x:Bind Source}" FontSize="11" FontWeight="SemiBold" Foreground="White"/>
+                                                        </Border>
+                                                        <Border Background="#FFF0EE" CornerRadius="6" Padding="8,3">
+                                                            <TextBlock Text="{x:Bind RuleName}" FontSize="11" FontWeight="SemiBold" Foreground="#FF3B30"/>
+                                                        </Border>
+                                                        <TextBlock Text="{x:Bind ProductName}" FontSize="14" FontWeight="SemiBold" Foreground="#1C1C1E" VerticalAlignment="Center"/>
+                                                    </StackPanel>
+                                                    <TextBlock Text="{x:Bind Snippet}" FontSize="13" Foreground="#3C3C43" TextWrapping="Wrap"/>
+                                                    <StackPanel Orientation="Horizontal" Spacing="6">
+                                                        <TextBlock Text="Gevonden:" FontSize="12" Foreground="#8E8E93" VerticalAlignment="Center"/>
+                                                        <Border Background="#FFF0EE" CornerRadius="4" Padding="6,2">
+                                                            <TextBlock Text="{x:Bind MatchedValue}" FontSize="12" FontWeight="SemiBold" Foreground="#FF3B30" TextTrimming="CharacterEllipsis" MaxWidth="320"/>
+                                                        </Border>
+                                                    </StackPanel>
+                                                    <TextBlock Text="{x:Bind ContextInfo}" FontSize="12" Foreground="#8E8E93"/>
+                                                </StackPanel>
+                                                <StackPanel Grid.Column="1" Orientation="Vertical" Spacing="6" VerticalAlignment="Center" Margin="16,0,0,0">
+                                                    <Button Content="Details bekijken" Style="{StaticResource PrimaryButtonStyle}" Tag="{x:Bind ProductId}" Click="ViewProductDetail_Click" Padding="12,7" FontSize="12"/>
+                                                    <Button Content="Product verwijderen" Style="{StaticResource DestructiveButtonStyle}" Tag="{x:Bind ProductId}" Click="DeleteProduct_Click" Padding="12,7" FontSize="12"/>
+                                                    <Button Content="Negeren" Style="{StaticResource SecondaryButtonStyle}" Tag="{x:Bind UniqueKey}" Click="DismissAutoFlag_Click" Padding="12,7" FontSize="12"/>
                                                 </StackPanel>
                                             </Grid>
                                         </Border>
